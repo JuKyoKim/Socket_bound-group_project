@@ -1,4 +1,13 @@
 body {
 	font-family: futura;
-	font-size: 40px;
+}
+
+#message-box {
+	box-sizing: border-box;
+	border: 1px solid black;
+	width: 200px;
+}
+
+#messages {
+	list-style-type: none;
 }

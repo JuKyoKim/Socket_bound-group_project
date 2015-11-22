@@ -80,8 +80,6 @@ module.exports = {
 
 
 
-
-
         }// end of the if else conditional for error check / nothing found check
     });// end of the initial twitter data grab
   }// end of the searchbyterm function
