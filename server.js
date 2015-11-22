@@ -6,18 +6,19 @@ var bodyParser = require('body-parser'),
 	//_          = require('underscore'),
 	app        = express(),
 	server     = require('http').createServer(app),
-	io         = require('socket.io')(server);
+	io         = require('socket.io')(server),
+	port 			 = process.env.PORT || 3000;
 //everything above is for the dependencies that needs to be required in the server file
 
 
 // server public files with express
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 
 // logger on dev
 app.use(logger('dev'));
 
 //instead of app user serve and listen on 3000
-server.listen(3000, function(){
+server.listen(port, function(){
 	console.log("the server is on 3000");
 });
 
@@ -33,3 +34,5 @@ fs.readdirSync('./controllers').forEach(function (file) {
       route.controller(app);
   }
 });
+
+require('./socket')(app, io);
