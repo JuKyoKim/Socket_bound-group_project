@@ -9,12 +9,12 @@ module.exports = {
 		});
 
 		newUser.save(function(err){
-			err ? console.log(err) : callback.send("new user: "+ newUser.username + " has been saved to the database");
+			err ? console.log(err) : callback.send(newUser);
 		});
 	},
-	findUser:function(name, callback){
-		User.find({username: name}).exec(function (err, user) {
-    		callback.send(user);
+	findUser:function(name, password, callback){
+		User.find({username: name, password: password}).exec(function (err, user) {
+			err ? console.log(err) : callback(user);
   		});
 	},
 	showAllUsers:function(callback){
