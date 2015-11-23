@@ -7,7 +7,8 @@ var bodyParser = require('body-parser'),
 	app        = express(),
 	server     = require('http').createServer(app),
 	io         = require('socket.io')(server),
-	port 	   = process.env.PORT || 3000;
+	port 	   = process.env.PORT || 3000
+	session    = require('express-session');
 
 //everything above is for the dependencies that needs to be required in the server file
 
@@ -17,6 +18,17 @@ app.use(express.static(__dirname + '/public'));
 
 // logger on dev
 app.use(logger('dev'));
+
+// sessions
+app.use(session({
+  secret: 'dont really need secrets with a session?',
+  saveUninitialized: false,
+  resave: false
+}));
+
+//body parser
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 // connecting database
 mongoose.connect('mongodb://localhost/users_test',function(err){
