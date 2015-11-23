@@ -9,7 +9,7 @@ module.exports = {
 		});
 
 		newUser.save(function(err){
-			err ? console.log(err) : callback.send(newUser);
+			err ? console.log(err) : callback(newUser);
 		});
 	},
 	findUser:function(name, callback){
@@ -19,12 +19,12 @@ module.exports = {
 	},
 	showAllUsers:function(callback){
 		User.find().exec(function(err,allUsers){
-			err ? console.log(err) : callback.send(allUsers);
+			err ? console.log(err) : callback(allUsers);
 		});
 	},
 	deleteUser:function(name, pass, callback){
 		User.remove({username: name, password: pass}).exec(function(err){
-			err ? console.log(err) : callback.send( name + " has been removed" );
+			err ? console.log(err) : callback(name)
 		});		
 	},
 	updateUser:function(callback, session_name, updated_name, updated_password, updated_email){
@@ -44,7 +44,7 @@ module.exports = {
 				updated_password === undefined ? update_array.password = user[0].password : update_array.password = updated_password;
 
 				User.update({username: session_name}, {$set: update_array}, function(err, user){
-					err ? console.log(err) : callback.send("user information has been updated");
+					err ? console.log(err) : callback(user);
 				});
 
 			}

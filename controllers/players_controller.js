@@ -5,7 +5,9 @@ module.exports.controller = function(app) {
 
 	app.get('/users/all',function(req,res){
 		//shows all users
-		User.showAllUsers(res);
+		User.showAllUsers(function(user){
+			res.send(user);
+		});
 	});
 
 	app.post('/users/login',function(req,res){
@@ -41,41 +43,62 @@ module.exports.controller = function(app) {
 		});
 	});
 
+	app.delete('/users/logout', function(req,res){
+		req.session.name = null;
+		req.session.password = null;
+		req.session.email = null;
+		res.send({
+			response: "logged out"
+		});
+	});
+
 	//create new user
 	app.post('/users',function(req,res){
 		var body = req.body;
 		req.session.name = body.username;
 		req.session.password = body.password;
 		req.session.email = body.email;
-		User.createUser(body.username, body.password, body.email,res);
+		User.createUser(body.username, body.password, body.email, function(user){
+			res.send(user);
+		});
 	});	
 
 	//grab user based on user session
 	app.get('/users',function(req,res){
-		if(req.session.name === undefined){
-			res.send({
-				logged_in: false,
-				username: req.session.name,
-				reason: "you are not logged in"
-			});
-		}else{
-			User.findUser(req.session.name, function(user){
-				res.send(user);// pulls the user from userfind and sends it out
-			});
-		}
+		User.findUser(req.session.name, function(user){
+			if(user.length === 0){
+				res.send({
+					logged_in: false,
+					username: req.session.name,
+					reason: "you are not logged in"
+				});
+			}else{
+				User.findUser(req.session.name, function(user){
+					res.send(user);// pulls the user from userfind and sends it out
+				});
+			}
+		});
+			
 	});
 
 	//delete user based on user session
 	app.delete('/users',function(req,res){
-		User.deleteUser(req.session.name, req.session.name, res);
+		var body = req.body;
 		req.session.name = null;
 		req.session.password = null;
 		req.session.email = null;
+		User.deleteUser(body.username, body.password, function(name){
+			res.send({
+				response: "user has been deleted"
+			});
+		});
 	});
 
 	//update current user's account info based on user session
 	app.patch('/user',function(req,res){
-		User.updateUser(res, req.session.name, body.username, body.password, body.email);
+		User.updateUser(function(user){
+			res.send(user);
+		}, req.session.name, body.username, body.password, body.email);
 	});
 
 };
