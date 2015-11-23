@@ -6,6 +6,8 @@ body {
 	box-sizing: border-box;
 	border: 1px solid black;
 	width: 200px;
+	height: 150px;
+	overflow: auto;
 }
 
 #messages {
