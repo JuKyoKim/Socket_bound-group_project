@@ -11,20 +11,27 @@ var bodyParser = require('body-parser'),
 //everything above is for the dependencies that needs to be required in the server file
 
 
+//instead of app user serve and listen on 3000
+server.listen(port, function(){
+	console.log("the server is on 3000");
+});
+
 // server public files with express
 app.use(express.static(__dirname + '/public'));
 
 // logger on dev
 app.use(logger('dev'));
 
-//instead of app user serve and listen on 3000
-server.listen(port, function(){
-	console.log("the server is on 3000");
-});
-
 // on localhost base
 app.get('/',function(req,res){
 	//load public for css/js test
+});
+
+app.get('/one',function(req,res){
+  res.sendFile((__dirname+'/public/oneplayer.html'));
+});
+app.get('/two',function(req,res){
+  res.sendFile((__dirname+'/public/twoplayer.html'));
 });
 
 // Going to use FS to connect all of our controllers vs express.router
@@ -35,4 +42,4 @@ fs.readdirSync('./controllers').forEach(function (file) {
   }
 });
 
-require('./socket')(app, io);
+require('./socket.js')(app, io);
