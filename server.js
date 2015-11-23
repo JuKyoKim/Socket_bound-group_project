@@ -24,8 +24,6 @@ app.use(express.static(__dirname + '/public'));
 // logger on dev
 app.use(logger('dev'));
 
-<<<<<<< HEAD
-=======
 // sessions
 app.use(session({
   secret: 'dont really need secrets with a session?',
@@ -42,12 +40,6 @@ mongoose.connect('mongodb://localhost/users_test',function(err){
   err ? console.log(err) : console.log("connected to users' database");
 });
 
-//instead of app user serve and listen on 3000
-server.listen(port, function(){
-	console.log("the server is on 3000");
-});
-
->>>>>>> refactor_twit2
 // on localhost base
 app.get('/',function(req,res){
 	//load public for css/js test
