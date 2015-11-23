@@ -10,18 +10,19 @@ module.exports.controller = function(app) {
 
 	app.post('/users/login',function(req,res){
 		var body = req.body;
-		console.log(body);
-		User.findUser(body.username, body.password, function(user){
-			if(user === undefined){
+		User.findUser(body.username, function(user){
+			if(user.length === 0){
 				res.send({
 					logged_in: false,
 					username: "null",
 					reason: "user does not exist in our database!"
 				});
 			}else{
-				if(user.username === body.username && user.password === body.password){
-					req.session.name;
-					req.session.password;
+				console.log(user[0].username);
+				if(user[0].username === body.username && user[0].password === body.password){
+					req.session.name = user[0].username;
+					req.session.password = user[0].password;
+					req.session.email = user[0].email;
 					res.send({
 						logged_in: true,
 						username: req.session.name,
@@ -55,10 +56,10 @@ module.exports.controller = function(app) {
 			res.send({
 				logged_in: false,
 				username: req.session.name,
-				reason: "you are not logged in!"
+				reason: "you are not logged in"
 			});
 		}else{
-			User.findUser(req.session.name, req.session.password,function(user){
+			User.findUser(req.session.name, function(user){
 				res.send(user);// pulls the user from userfind and sends it out
 			});
 		}

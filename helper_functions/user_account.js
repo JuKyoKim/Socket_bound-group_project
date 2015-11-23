@@ -12,8 +12,8 @@ module.exports = {
 			err ? console.log(err) : callback.send(newUser);
 		});
 	},
-	findUser:function(name, password, callback){
-		User.find({username: name, password: password}).exec(function (err, user) {
+	findUser:function(name, callback){
+		User.find({username: name}).exec(function (err, user) {
 			err ? console.log(err) : callback(user);
   		});
 	},
