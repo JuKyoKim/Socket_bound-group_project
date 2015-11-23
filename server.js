@@ -7,7 +7,8 @@ var bodyParser = require('body-parser'),
 	app        = express(),
 	server     = require('http').createServer(app),
 	io         = require('socket.io')(server),
-	port 			 = process.env.PORT || 3000;
+	port 	   = process.env.PORT || 3000;
+
 //everything above is for the dependencies that needs to be required in the server file
 
 
@@ -16,6 +17,11 @@ app.use(express.static(__dirname + '/public'));
 
 // logger on dev
 app.use(logger('dev'));
+
+// connecting database
+mongoose.connect('mongodb://localhost/users_test',function(err){
+  err ? console.log(err) : console.log("connected to users' database");
+});
 
 //instead of app user serve and listen on 3000
 server.listen(port, function(){
