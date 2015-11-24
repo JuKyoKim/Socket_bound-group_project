@@ -1,15 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
   <link rel="stylesheet" href="./css/style.css">
 </head>
+
 <body>
   <div class="container">
     <div class="sidebar">
       <div class="sidebar-top"></div>
-      <div class="sidebar-bottom"></div>
+      <!-- CHAT ROOM -->
+      <div class="sidebar-bottom">
+        <p>Chat Room (open another tab on localhost to try it out)</p>
+        <div id="message-box">
+          <ul id="messages"></ul>
+        </div>
+
+        <!-- chat type box and button -->
+        <form class='msg' action="">
+          <input id="m" autocomplete="off" />
+          <button>Send</button>
+        </form>
+      </div>
+      
     </div>
     <div class="searchbar-one"></div>
     <div class="searchbar-two"></div>
@@ -34,4 +49,5 @@
 
   </div>
 </body>
+
 </html>
