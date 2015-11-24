@@ -7,17 +7,28 @@ $('body').on('click', '#submit-username', setUsername);
 $('body').on('click', '#send-message', sendMessage);
 });//end onload
 
+//global variables
 var socket = io();
 var username;
+
 var showLogin = function(){
   $('#play-button').hide();
   $('#login').show();
+  socket.emit('get users', "getting users");
 };
 
 // // Gets users that are connected when you first join
 // socket.on('get users', addUser);
 // // Updates users when a user joins
 // socket.on('user joined', addUser);
+
+//get users that are already there
+socket.on('get users', getUsers);
+
+function getUsers(users) {
+  console.log(users);
+  console.log('users gotten');
+}
 
 function setUsername () {
   console.log('set username');
@@ -34,6 +45,9 @@ function setUsername () {
 socket.on('user joined', function (data) {
     console.log(data.username + ' joined');
   });
+
+
+
 
 function sendMessage () {
   console.log('send message');
@@ -56,11 +70,19 @@ function addChatMessage (data) {
       .text(data.message + " ");
     var $messageDiv = $('#messages');
     $messageDiv.append($usernameDiv, $messageBodyDiv);
-
 }
+
+socket.on('user joined', function (data) {
+  console.log(data.username + ' joined');
+});
 
 // Whenever the server emits 'new message', update the chat body
 socket.on('new message', function (data) {
   console.log(data);
   addChatMessage(data);
 });
+
+//user leaves
+socket.on('user left', function (data) {
+    console.log(data.username + ' left');
+  });
