@@ -1,6 +1,5 @@
 module.exports = function(app, io) {
 
-
 var usernames = [];
 var inGame = false;
 
@@ -31,7 +30,7 @@ socket.on('add user', function (username) {
   });
 
 socket.on('get users', function(data) {
-		socket.emit('get users', usernames);
+		socket.broadcast.emit('get users', usernames);
 	});
 
 	// when the user disconnects.. perform this

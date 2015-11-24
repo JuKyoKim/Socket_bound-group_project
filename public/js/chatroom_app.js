@@ -5,6 +5,7 @@ $(function() {
 $('body').on('click', '#play-button', showLogin);
 $('body').on('click', '#submit-username', setUsername);
 $('body').on('click', '#send-message', sendMessage);
+socket.emit('get users', "getting users");
 });//end onload
 
 //global variables
@@ -14,7 +15,6 @@ var username;
 var showLogin = function(){
   $('#play-button').hide();
   $('#login').show();
-  socket.emit('get users', "getting users");
 };
 
 // // Gets users that are connected when you first join
@@ -23,10 +23,19 @@ var showLogin = function(){
 // socket.on('user joined', addUser);
 
 //get users that are already there
+
 socket.on('get users', getUsers);
 
 function getUsers(users) {
+  $('.users-online').empty();
   console.log(users);
+  if (users.length > 0) {
+    users.forEach(function(user){
+      if (user.username !== username) {
+      var userText = $('<p class="user-text">').text(user.username);
+      $('.users-online').append(userText);}
+    });
+  }
   console.log('users gotten');
 }
 
@@ -39,6 +48,7 @@ function setUsername () {
     $('#login').hide();
     //tell server your username
     socket.emit('add user', username);
+    socket.emit('get users', "getting users");
   }
 }
 
