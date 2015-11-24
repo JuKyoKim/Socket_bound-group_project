@@ -5,8 +5,7 @@ $(function() {
 $('body').on('click', '#play-button', showLogin);
 $('body').on('click', '#submit-username', setUsername);
 $('body').on('click', '#send-message', sendMessage);
-$('body').on('click', '.invite-button', function(e){ sendInvite(e);
-});
+$('body').on('click', '.invite-button', sendInvite);
 
 
 // socket.emit('get users', "getting users");
@@ -15,6 +14,7 @@ $('body').on('click', '.invite-button', function(e){ sendInvite(e);
 //global variables
 var socket = io();
 var username;
+var opponentid;
 
 var showLogin = function(){
   $('#play-button').hide();
@@ -31,6 +31,7 @@ function getUsers(users) {
     users.forEach(function(user){
       if (user.username !== username && !user.inGame) {
         var newLi = $('<li class="user-text">');
+        newLi.attr('socketId', user.id);
         $('.users-online').append(newLi);
       var userText = $('<p class="usernametext">').text(user.username);
       $(newLi).append(userText);
@@ -92,15 +93,16 @@ function addChatMessage (data) {
 
 
 
-socket.on('send invite', sendInvite);
+socket.on('send invite', function(data) {
+  $('.invite').show();
+});
 
 function sendInvite(e) {
-  var opponent = e.target.parentElement.firstChild.innerHTML;
-  console.log(opponent);
-  console.log(username);
-  // $('.invite').show();
-  // socket.emit('send invite', personInvited);
+var opponent = e.target.parentElement.firstChild.innerHTML;
+opponentid = e.target.parentElement.getAttribute('socketid');
+socket.emit('send invite', {opponent: opponentid, player: socket.io.engine.id, name: username});
 }
+
 
 
 

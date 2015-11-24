@@ -2,6 +2,8 @@ module.exports = function(app, io) {
 
 var usernames = [];
 var inGame = false;
+var opponentid;
+var playerid;
 
 io.on('connection', function(socket) {
 	var addedUser = false;
@@ -35,7 +37,9 @@ socket.on('get users', function(data) {
 	});
 
 socket.on('send invite', function(data){
-	console.log('send invite on socket.js file');
+	opponentid = data.opponent;
+	playerid = data.player;
+	socket.broadcast.to(opponentid).emit('send invite', data);
 });
 
 	// when the user disconnects.. perform this
