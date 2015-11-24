@@ -97,26 +97,51 @@ body {
   margin-top: 10px;
 }
 
-#overlay {
-     /*visibility: hidden;*/
-   position: absolute;
-   left: 0px;
-   top: 100px;
-   width:100%;
-   height:100%;
-   text-align:center;
-   z-index: 1000;
-   background-image: url(background-trans.png);
+.overlay {
+	/*visibility: hidden;*/
+	position: absolute;
+	left: 0px;
+	top: 100px;
+	width:100%;
+	height:100%;
+	text-align:center;
+	z-index: 1000;
+	background-image: url(background-trans.png);
 }
 
-#overlay div {
-  color: gray;
-   width: 200px;
-   margin: 100px auto;
-   background-color: rgba(255,255,255,0.8);
-   padding:15px;
-   text-align:center;
-   border-radius: 10px;
+.overlay div {
+	color: gray;
+	width: 200px;
+	background-color: rgba(255,255,255,0.8);
+	padding:15px;
+	text-align:center;
+	border-radius: 10px;
+}
+
+.window{
+	margin: 100px auto;
+}
+
+.searchterms {
+	/*visibility: hidden;*/
+	width: 200px;
+	background-color: rgba(255,255,255,0.8);
+	text-align:center;
+	padding: 15px;
+}
+
+#window-one {
+	margin: auto;
+	/*float: right;*/
+	z-index: 1;
+	position: absolute;
+}
+
+#window-two {
+	margin: auto;
+	/*float: right;*/
+	z-index: 1;
+	position: absolute;
 }
 
 .button {
