@@ -5,7 +5,11 @@ $(function() {
 $('body').on('click', '#play-button', showLogin);
 $('body').on('click', '#submit-username', setUsername);
 $('body').on('click', '#send-message', sendMessage);
-socket.emit('get users', "getting users");
+$('body').on('click', '.invite-button', function(e){ sendInvite(e);
+});
+
+
+// socket.emit('get users', "getting users");
 });//end onload
 
 //global variables
@@ -17,13 +21,7 @@ var showLogin = function(){
   $('#login').show();
 };
 
-// // Gets users that are connected when you first join
-// socket.on('get users', addUser);
-// // Updates users when a user joins
-// socket.on('user joined', addUser);
-
 //get users that are already there
-
 socket.on('get users', getUsers);
 
 function getUsers(users) {
@@ -31,9 +29,14 @@ function getUsers(users) {
   console.log(users);
   if (users.length > 0) {
     users.forEach(function(user){
-      if (user.username !== username) {
-      var userText = $('<p class="user-text">').text(user.username);
-      $('.users-online').append(userText);}
+      if (user.username !== username && !user.inGame) {
+        var newLi = $('<li class="user-text">');
+        $('.users-online').append(newLi);
+      var userText = $('<p class="usernametext">').text(user.username);
+      $(newLi).append(userText);
+      var inviteButton = $('<button class="invite-button">').text("Invite to Play Game");
+      $(newLi).append(inviteButton);
+    }
     });
   }
   console.log('users gotten');
@@ -48,15 +51,14 @@ function setUsername () {
     $('#login').hide();
     //tell server your username
     socket.emit('add user', username);
-    socket.emit('get users', "getting users");
   }
+    socket.emit('get users', "getting users");
 }
 
-socket.on('user joined', function (data) {
-    console.log(data.username + ' joined');
-  });
-
-
+// socket.on('user joined', function (data) {
+//   console.log(data.username + ' joined');
+//   socket.emit('get users', "getting users");
+// });
 
 
 function sendMessage () {
@@ -68,12 +70,18 @@ function sendMessage () {
     username: username,
     message: message
   });
+  //this allows you to send message to other people in global chat
   socket.emit('new message', message);
 }
 
+// Whenever the server emits 'new message', update the chat body
+socket.on('new message', function (data) {
+  console.log(data);
+  addChatMessage(data);
+});
+
 function addChatMessage (data) {
   console.log(data);
-  console.log('add chat message');
   var $usernameDiv = $('<span class="username"/>')
       .text(data.username + ": ").css('color', 'red');
     var $messageBodyDiv = $('<span class="messageBody">')
@@ -82,17 +90,21 @@ function addChatMessage (data) {
     $messageDiv.append($usernameDiv, $messageBodyDiv);
 }
 
-socket.on('user joined', function (data) {
-  console.log(data.username + ' joined');
-});
 
-// Whenever the server emits 'new message', update the chat body
-socket.on('new message', function (data) {
-  console.log(data);
-  addChatMessage(data);
-});
 
-//user leaves
-socket.on('user left', function (data) {
-    console.log(data.username + ' left');
-  });
+socket.on('send invite', sendInvite);
+
+function sendInvite(e) {
+  var opponent = e.target.parentElement.firstChild.innerHTML;
+  console.log(opponent);
+  console.log(username);
+  // $('.invite').show();
+  // socket.emit('send invite', personInvited);
+}
+
+
+
+// //user leaves
+// socket.on('user left', function (data) {
+//     console.log(data.username + ' left');
+//   });
