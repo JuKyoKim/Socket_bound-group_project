@@ -1,40 +1,66 @@
 console.log('chatroom_app is loaded');
 
 $(function() {
-  $('#invite').on('click', sendInvite);
-  $('.accept').on('click', renderGameBoard);
-});
+
+$('body').on('click', '#play-button', showLogin);
+$('body').on('click', '#submit-username', setUsername);
+$('body').on('click', '#send-message', sendMessage);
+});//end onload
 
 var socket = io();
-console.log(socket);
-  //sends a message in the chat room
-    $('.msg').submit(function(){
-      socket.emit('chat message', $('#m').val());
-      $('#m').val('');
-      return false;
-    });
-
-    socket.on('chat message', function(msg){
-      $('#messages').append($('<li>').text(msg));
-    });
-
-//button to send invite
-var sendInvite = function() {
-  var inviteButton = $('#inviteButton');
-  socket.emit('invite', inviteButton);
+var username;
+var showLogin = function(){
+  $('#play-button').hide();
+  $('#login').show();
 };
 
-//sends an invite to another user to ask them to play a game AKA makes an accept button show up on other user's page
-socket.on('invite', function(newButton){
-  $('body').append($('<button class="accept">').text('accept game'));
-});
+// // Gets users that are connected when you first join
+// socket.on('get users', addUser);
+// // Updates users when a user joins
+// socket.on('user joined', addUser);
 
-var renderGameBoard = function() {
-  var accept = $('.accept');
-  socket.emit('game', accept);
-};
+function setUsername () {
+  console.log('set username');
+    console.log(socket);
+  username = $('#login-input').val().trim();
+  if(username) {
+    $('#global-chat').show();
+    $('#login').hide();
+    //tell server your username
+    socket.emit('add user', username);
+  }
+}
 
-socket.on('game', function(gameboard){
-  var game = $('<p>').text('here is the game board');
-  $('body').append(game);
+socket.on('user joined', function (data) {
+    console.log(data.username + ' joined');
+  });
+
+function sendMessage () {
+  console.log('send message');
+
+  var message = $('#message-content').val();
+
+  addChatMessage({
+    username: username,
+    message: message
+  });
+  socket.emit('new message', message);
+}
+
+function addChatMessage (data) {
+  console.log(data);
+  console.log('add chat message');
+  var $usernameDiv = $('<span class="username"/>')
+      .text(data.username + ": ").css('color', 'red');
+    var $messageBodyDiv = $('<span class="messageBody">')
+      .text(data.message + " ");
+    var $messageDiv = $('#messages');
+    $messageDiv.append($usernameDiv, $messageBodyDiv);
+
+}
+
+// Whenever the server emits 'new message', update the chat body
+socket.on('new message', function (data) {
+  console.log(data);
+  addChatMessage(data);
 });

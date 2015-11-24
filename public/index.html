@@ -8,23 +8,42 @@
 </head>
 
 <body>
-	<!-- should throw templates in here! -->
 	<h4>Test</h4>
-
-
-	<!-- CHAT ROOM PLACE HOLDER -->
-	<p>Chat Room (open another tab on localhost to try it out)</p>
-	<div id="message-box">
-	<ul id="messages"></ul>
+	<div id="splashpage">
+			<button id="play-button">Play Game</button>
 	</div>
 
-	<!-- chat type box and button -->
-	<form class='msg' action="">
-		<input id="m" autocomplete="off" />
-		<button>Send</button>
-	</form>
+	<div id="login">
+				<div class="loginform">
+					Put in Username
+					<input type="text" type="submit" id="login-input" placeholder="Enter your username">
+					<button id="submit-username">enter</button>
 
-	<button id="invite">Send Invite To Play</button>
+				</div>
+			</div>
+
+<!-- Chat Box -->
+<div id="global-chat">
+	<div class="chat-container">
+			<h3 id="users-header">Users</h3>
+			<div class="users-online">
+			</div>
+	</div>
+	<!-- where the messages are appended to -->
+		<div id="message-box">
+			<ul id="messages"></ul>
+		</div>
+		<!-- where you type your message in the chat -->
+	<div class="message-input">
+		<div class='message-form' action="">
+			<input id="message-content"/>
+			<button id="send-message">Send</button>
+		</div>
+	</div>
+</div>
+
+<!-- invite player to game -->
+	<!-- <button id="invite">Send Invite To Play</button> -->
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>

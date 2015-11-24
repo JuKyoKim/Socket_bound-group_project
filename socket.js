@@ -1,30 +1,52 @@
 module.exports = function(app, io) {
 
-	//on connection to the socket
-	io.on('connection', function(socket) {
-		console.log('connected');
-		//invites another user on the socket to a game - an accept button will pop up that is rendered on public/js/app.js
 
-		socket.on('invite', function(newButton) {
-			socket.broadcast.emit('invite', newButton);
-		});
+var usernames = {};
+var inGame = false;
 
-		//chat features - sends a message that is rendered in public/js/chatroom_app.js
-		socket.on('chat message', function(msg) {
-			io.emit('chat message', msg);
-		});
+io.on('connection', function(socket) {
+	var addedUser = false;
 
-		socket.on('game', function(gameboard) {
-			socket.broadcast.emit('game', gameboard);
-		});
+	// when the client emits 'new message', this listens and executes
+	socket.on('new message', function (data) {
+    // we tell the client to execute 'new message'
+    socket.broadcast.emit('new message', {
+      username: socket.username,
+      message: data
+    });
+  });
+
+socket.on('add user', function (username) {
+    // we store the username in the socket session for this client
+    socket.username = username;
+    // add the client's username to the global list
+    usernames[username] = username;
+    addedUser = true;
+    // socket.emit('login', {
+    //   numUsers: numUsers
+    // });
+    // echo globally (all clients) that a person has connected
+    socket.broadcast.emit('user joined', {
+      username: socket.username
+    });
+  });
+
+// 	socket.on('get users', function(data) {
+// 		socket.emit('get users', usernames);
+// 	});
+//
+// var addedUser = false;
+// 	socket.on('add user', function(username){
+// 		var userObj = {};
+// 		userObj.name = username;
+// 		userObj.id = socket.id;
+// 		userObj.ingame = false;
+// 		usernames.push(userObj);
+// 		addedUser = true;
+// 		socket.broadcast.emit('user joined', usernames);
+// 		socket.emit('user joined', usernames);
+// 	});
 
 
-
-
-		//logs that a user has left hte chat room
-		socket.on('disconnect', function() {
-			console.log('user disconnected');
-		});
-
-	}); //end io.on
+}); //end io.on
 }; //end module
