@@ -1,0 +1,38 @@
+/*#col-md-1 {
+  border: 2px solid black;
+}*/
+.container {
+  position: absolute;
+}
+
+.column-one {
+  border: 2px solid black;
+  width: 25%;
+  height: 850px;
+  float: left;
+}
+
+.one {
+  border: 2px solid black;
+  width: 90%;
+  height: 400px;
+  margin: auto;
+  /*padding: 5px;*/
+  display: inline-block;
+}
+ .two {
+   border: 2px solid black;
+   width: 90%;
+   height: 400px;
+   margin: auto;
+   /*padding: 5px;*/
+   display: inline-block;
+ }
+
+ .row-search {
+   border: 2px solid black;
+   height: 15%;
+   width: 60%;
+   postion: relative;
+   float: right;
+ }

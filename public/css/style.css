@@ -1,0 +1,154 @@
+body {
+	font-family: futura;
+}
+
+#message-box {
+	box-sizing: border-box;
+	border: 1px solid black;
+	width: 200px;
+	height: 150px;
+	overflow: auto;
+}
+
+#messages {
+	list-style-type: none;
+}
+
+#login {
+	display: none;
+}
+
+#global-chat {
+	display: none;
+}
+
+.invite {
+	display: none;
+}
+
+.sent-invite {
+	display: none;
+}
+
+#game-div {
+	display: none;
+	height: 300px;
+	width: 300px;
+	box-sizing: border-box;
+	border: 1px black solid;
+}
+
+.container {
+ /*position: relative;*/
+ border: 1px solid black;
+ width: 100%;
+ height: 700px;
+ font-family: Helvetica, sans-serif;
+}
+
+.searchbar {
+  /*border: 1px dotted black;*/
+  background-color: powderblue;
+  height: 15%;
+}
+
+.sidebar {
+  /*border: 1px dotted black;*/
+  background-color: lightgrey;
+  margin-top: 10px;
+  width: 20%;
+  height: 80%;
+  float: left;
+}
+
+.one-player {
+  /*border: 1px dotted black;*/
+  background-color: turquoise;
+  margin-left: 22%;
+  margin-top: 10px;
+  width: 76%;
+  height: 80%;
+}
+
+.sidebar-top {
+  background-color: pink;
+  width: 100%;
+  height: 50%;
+  margin-bottom: 10px;
+  float: left;
+}
+
+.sidebar-bottom {
+  background-color: grey;
+  width: 100%;
+  height: 50%;
+  float: left;
+}
+
+.searchbar-one {
+  background-color: powderblue;
+  width: 38%;
+  height: 15%;
+  float: right;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.searchbar-two{
+  background-color: turquoise;
+  width: 38%;
+  height: 15%;
+  float: right;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.player-one {
+  background-color: powderblue;
+  width: 38%;
+  height: 75%;
+  float: right;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.player-two {
+  background-color: turquoise;
+  width: 38%;
+  height: 75%;
+  float: right;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+#overlay {
+     /*visibility: hidden;*/
+   position: absolute;
+   left: 0px;
+   top: 100px;
+   width:100%;
+   height:100%;
+   text-align:center;
+   z-index: 1000;
+   background-image: url(background-trans.png);
+}
+
+#overlay div {
+  color: gray;
+   width: 200px;
+   margin: 100px auto;
+   background-color: rgba(255,255,255,0.8);
+   padding:15px;
+   text-align:center;
+   border-radius: 10px;
+}
+
+.button {
+  font-size: 14px;
+  color: white;
+  background-color: turquoise;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid lightgrey;
+}
