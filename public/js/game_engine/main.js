@@ -26,7 +26,7 @@ var TankGame = function(game){
 TankGame.prototype = {
 	preload:function(){
 		this.physics.startSystem(Phaser.Physics.ARCADE);
-        this.physics.arcade.gravity.y = 200;
+        this.physics.arcade.gravity.y = 400;
 		this.load.image('background1', '../../assets/background1.png');
         this.load.image('background2', '../../assets/background2.png');
         this.load.image('background3', '../../assets/background3.png');
@@ -38,6 +38,7 @@ TankGame.prototype = {
 		
 		
 	},
+
 	create:function(){
 		//sets the background to any of the three
 		var rand = Math.round(Math.random()*3);
@@ -68,6 +69,15 @@ TankGame.prototype = {
         this.playerFirebutton.onDown.add(this.fire, this);
 
 	},
+
+	update:function(){
+		//if the bullet exists check what it hit
+		if (this.bullet.exists){
+			//
+			this.LandHo();
+        }
+	},
+
 	fire:function(){
 		//check to see if bullet exist, if not log me firing and move forward
 		if(this.bullet.exists){
@@ -77,17 +87,23 @@ TankGame.prototype = {
 		//reset the bullet back to the turret
 		this.bullet.reset(this.playerTurret.x, this.playerTurret.y);
 
-		//  Now work out where the END of the turret is
+		//find the turrets ending
 		var p = new Phaser.Point(this.playerTurret.x, this.playerTurret.y);
 		p.rotate(p.x, p.y, this.playerTurret.rotation, false, 34);
 
-		//  So we can see what's going on when the bullet leaves the screen
-		this.camera.follow(this.bullet);
-
-		//  Our launch trajectory is based on the angle of the turret and the power
+		//according to the doc I send rotation and power, and it wil; return a velocity i set to the third (which is bullet)
 		this.physics.arcade.velocityFromRotation(this.playerTurret.rotation, this.playerPower, this.bullet.body.velocity);
 
 	},
+
+	LandHo: function () {
+		//check if bullet hits any of the border areas
+		if (this.bullet.x < 0 || this.bullet.x > board_width || this.bullet.y > board_height){
+        	//remove that bullet
+        	this.bullet.kill();
+        	return;
+    	}
+    },
 
 
 
