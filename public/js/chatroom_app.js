@@ -6,6 +6,7 @@ $('body').on('click', '#play-button', showLogin);
 $('body').on('click', '#submit-username', setUsername);
 $('body').on('click', '#send-message', sendMessage);
 $('body').on('click', '.invite-button', sendInvite);
+$('.accept-button').on('click', startGame);
 
 
 // socket.emit('get users', "getting users");
@@ -31,7 +32,9 @@ function getUsers(users) {
     users.forEach(function(user){
       if (user.username !== username && !user.inGame) {
         var newLi = $('<li class="user-text">');
-        newLi.attr('socketId', user.id);
+        newLi.attr('socketid', user.id);
+        //this is proactive for later to start a game with this opponent upon acceptance
+        $('.accept-button').attr('socketid', user.id);
         $('.users-online').append(newLi);
       var userText = $('<p class="usernametext">').text(user.username);
       $(newLi).append(userText);
@@ -83,30 +86,44 @@ socket.on('new message', function (data) {
 
 function addChatMessage (data) {
   console.log(data);
-  var $usernameDiv = $('<span class="username"/>')
-      .text(data.username + ": ").css('color', 'red');
-    var $messageBodyDiv = $('<span class="messageBody">')
-      .text(data.message + " ");
+  var $usernameDiv = $('<span class="username"/>').text(data.username + ": ").css('color', 'red');
+    var $messageBodyDiv = $('<span class="messageBody">').text(data.message + " ");
     var $messageDiv = $('#messages');
     $messageDiv.append($usernameDiv, $messageBodyDiv);
 }
-
 
 
 socket.on('send invite', function(data) {
   $('.invite').show();
 });
 
+socket.on('invitation sent', function(data) {
+  $('.sent-invite').show();
+  socket.emit('invitation sent', {opponent: opponentid, player: socket.id});
+});
+
 function sendInvite(e) {
-var opponent = e.target.parentElement.firstChild.innerHTML;
-opponentid = e.target.parentElement.getAttribute('socketid');
-socket.emit('send invite', {opponent: opponentid, player: socket.io.engine.id, name: username});
+var opponent = $(this).parent().closest('p').text();
+opponentid = $(this).parent().attr('socketid');
+var setId = $('.invite').attr('socketid', opponentid);
+console.log('send invite' + opponentid);
+socket.emit('send invite', {opponent: opponentid, player: socket.id, name: username});
 }
 
+function startGame(e) {
+  opponentid = $(this).attr('socketid');
+  console.log(opponentid);
+  socket.emit('start game', {opponent: opponentid, player: socket.id});
+}
+
+socket.on('start game', function(players){
+  console.log(players + "started game");
+  $('#game-div').show();
+});
 
 
 
-// //user leaves
-// socket.on('user left', function (data) {
-//     console.log(data.username + ' left');
-//   });
+//user leaves
+socket.on('user left', function (data) {
+    console.log(data.username + ' left');
+  });
