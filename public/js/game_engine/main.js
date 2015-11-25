@@ -72,6 +72,22 @@ TankGame.prototype = {
 
 	update:function(){
 		//if the bullet exists check what it hit
+		if (this.playerCursor.left.isDown && this.playerPower > 100){
+		    this.playerPower -= 2;
+		}else if (this.playerCursor.right.isDown && this.playerPower < 600){
+		    this.playerPower += 2;
+		}
+
+		//  Allow them to set the angle, between -90 (straight up) and 0 (facing to the right)
+		if (this.playerCursor.up.isDown && this.playerTurret.angle > -90){
+		    this.playerTurret.angle--;
+		}else if (this.playerCursor.down.isDown && this.playerTurret.angle < 0){
+		    this.playerTurret.angle++;
+		}
+
+		//  Update the text
+        this.playerText.text = 'playerPower: ' + this.playerPower;
+
 		if (this.bullet.exists){
 			//
 			this.LandHo();
