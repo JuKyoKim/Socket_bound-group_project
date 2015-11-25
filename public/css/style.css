@@ -26,6 +26,18 @@ body {
 	display: none;
 }
 
+.sent-invite {
+	display: none;
+}
+
+#game-div {
+	display: none;
+	height: 300px;
+	width: 300px;
+	box-sizing: border-box;
+	border: 1px black solid;
+}
+
 .container {
  /*position: relative;*/
  border: 1px solid black;

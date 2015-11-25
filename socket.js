@@ -37,14 +37,28 @@ socket.on('get users', function(data) {
 	});
 
 socket.on('send invite', function(data){
+	console.log(data + "send invite from socket.js file");
 	opponentid = data.opponent;
+	console.log(opponentid + 'from socket.js file');
 	playerid = data.player;
 	socket.broadcast.to(opponentid).emit('send invite', data);
+	socket.emit('invitation sent', data);
+});
+
+
+socket.on('start game', function(data){
+	console.log(data);
+	opponentid = data.opponent;
+	console.log(opponentid);
+	playerid = data.player;
+	console.log(playerid);
+	inGame = true;
+	socket.broadcast.to(data.opponent).emit('start game', data);
+	socket.emit('start game', data);
 });
 
 	// when the user disconnects.. perform this
   socket.on('disconnect', function (data) {
-		console.log(data + " disconnect");
     // remove the username from global usernames list
     if (addedUser) {
       usernames.forEach(function(user, index){
