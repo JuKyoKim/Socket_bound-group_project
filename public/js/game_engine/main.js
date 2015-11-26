@@ -12,7 +12,7 @@ var TankGame = function(game){
 
 	this.bullet = null
 	this.background = null
-	
+
 	this.playerPower = 0
 	this.playerText = null
 
@@ -35,8 +35,8 @@ TankGame.prototype = {
 		this.load.image('player2', '../../assets/player2.png');
 		this.load.image('turret', '../../assets/turret.png');
 		this.load.image('bullet', '../../assets/bullet.png');
-		
-		
+
+
 	},
 
 	create:function(){
@@ -127,13 +127,3 @@ TankGame.prototype = {
 };
 
 game.state.add('Game', TankGame, true);
-
-
-
-
-
-
-
-
-
-

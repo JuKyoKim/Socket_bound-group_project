@@ -20,6 +20,7 @@ var opponentid;
 var showLogin = function(){
   $('#instruction-page').hide();
   $('#login').show();
+  socket.emit('get users', "getting users");
 };
 
 //get users that are already there

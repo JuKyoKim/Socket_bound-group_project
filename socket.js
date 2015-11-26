@@ -19,15 +19,16 @@ module.exports = function(app, io) {
 			});
 			// usernames[username] = username;
 			addedUser = true;
+
 			// echo globally (all clients) that a person has connected
-			socket.broadcast.emit('user joined', {
-				username: socket.username
-			});
+			socket.broadcast.emit('user joined', usernames);
+			socket.emit('user joined', usernames);
 		});
 
 		//gets users intially and continually when someone logs in.
 		socket.on('get users', function(data) {
 			socket.broadcast.emit('get users', usernames);
+			socket.emit('get users', usernames);
 		});
 
 		//allows the messages for both people to come up on chat
@@ -59,22 +60,15 @@ module.exports = function(app, io) {
 
 		// when the user disconnects.. perform this
 		  socket.on('disconnect', function (data) {
-		    // remove the username from global usernames list
-		    if (addedUser) {
-		      usernames.forEach(function(user, index){
-						if (user.username === data.username) {
-							var i = usernames.indexOf(index);
-							usernames.splice(i, 1);
-						}
-						console.log(usernames);
-						  socket.emit('get users', "getting users");
-					});
-		}
-		      // echo globally that this client has left
-		      socket.broadcast.emit('user left', {
-		        username: socket.username,
-		      });
 
+				if(addedUser) {
+					usernames.forEach(function(user){
+						if(user.id === socket.id) {
+							usernames.splice(usernames.indexOf(user),1);
+						}
+					});
+				}
+				socket.broadcast.emit('get users', usernames);
 		  });
 
 
