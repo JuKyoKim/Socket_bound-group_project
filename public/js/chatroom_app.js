@@ -60,7 +60,7 @@ function setUsername () {
     socket.emit('add user', username);
   }
   //gets user list of people already logged in
-    socket.emit('get users', "getting users");
+    socket.emit('get users', getUsers);
 }
 
 // socket.on('user joined', function (data) {
@@ -77,8 +77,9 @@ function sendMessage () {
     username: username,
     message: message
   });
-  //this allows you to send message to other people in global chat
+  // this allows you to send message to other people in global chat
   socket.emit('new message', message);
+  $('#message-content').val('');
 }
 
 // Whenever the server emits 'new message', update the chat body
@@ -117,6 +118,8 @@ var opponentName = $(this).parent().find('p').text();
 //sets global variable of opponent id
 opponentid = $(this).parent().attr('socketid');
 
+$(this).remove();
+
 socket.emit('send invite', {opponent: opponentid, oppName: opponentName, player: socket.id, name: username});
 }
 
@@ -135,9 +138,7 @@ socket.on('start game', function(players){
   $('#game-div').text('Game goes here.');
 });
 
-
-//
 // //user leaves
-// socket.on('user left', function (data) {
-//     console.log(data.username + ' left');
-//   });
+socket.on('user left', function (data) {
+    socket.emit('user left', {name: data.username});
+  });
