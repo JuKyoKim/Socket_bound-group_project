@@ -34,8 +34,6 @@ function getUsers(users) {
       if (user.username !== username && !user.inGame) {
         var newLi = $('<li class="user-text">');
         newLi.attr('socketid', user.id);
-        //this is proactive for later to start a game with this opponent upon acceptance
-        $('.accept-button').attr('socketid', user.id);
         $('.users-online').append(newLi);
       var userText = $('<p class="usernametext">').text(user.username);
       $(newLi).append(userText);
@@ -101,6 +99,7 @@ function addChatMessage (data) {
 //shows the invite from html document
 socket.on('send invite', function(data) {
   $('.invite').show();
+  $('.accept-button').attr('socketid', data.player);
   var inviteStatus = $('<h3 class="invite-arrived">').text('invitation to play from ' + data.name + ".")
   $('.invite').prepend(inviteStatus);
 });
@@ -118,7 +117,6 @@ var opponent = $(this).parent().closest('p').text();
 var opponentName = $(this).parent().find('p').text();
 //sets global variable of opponent id
 opponentid = $(this).parent().attr('socketid');
-
 $(this).remove();
 
 socket.emit('send invite', {opponent: opponentid, oppName: opponentName, player: socket.id, name: username});
@@ -128,6 +126,7 @@ socket.emit('send invite', {opponent: opponentid, oppName: opponentName, player:
 function startGame(e) {
 
   opponentid = $(this).attr('socketid');
+  console.log(opponentid);
   // console.log(opponentid);
   socket.emit('start game', {opponent: opponentid, player: socket.id});
 }

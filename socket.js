@@ -60,7 +60,6 @@ module.exports = function(app, io) {
 
 		// when the user disconnects.. perform this
 		  socket.on('disconnect', function (data) {
-
 				if(addedUser) {
 					usernames.forEach(function(user){
 						if(user.id === socket.id) {
