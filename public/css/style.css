@@ -2,6 +2,16 @@ body {
 	font-family: futura;
 }
 
+li {
+	list-style-type: none;
+}
+
+
+.invite-button {
+	top: -15px;
+	position: relative;
+}
+
 #message-box {
 	box-sizing: border-box;
 	border: 1px solid black;
