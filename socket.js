@@ -39,6 +39,19 @@ module.exports = function(app, io) {
 			});
 		});
 
+
+		socket.on('private message', function(data) {
+			opponentid = data.opponent;
+			playerid = data.player;
+			console.log(opponentid);
+			console.log(playerid + " player id");
+			socket.broadcast.to(opponentid).emit('private message', {
+				username: socket.username,
+				message: data.message
+			});
+
+		});
+
 		socket.on('send invite', function(data) {
 			// console.log(data + "send invite from socket.js file");
 			opponentid = data.opponent;
@@ -59,16 +72,16 @@ module.exports = function(app, io) {
 		});
 
 		// when the user disconnects.. perform this
-		  socket.on('disconnect', function (data) {
-				if(addedUser) {
-					usernames.forEach(function(user){
-						if(user.id === socket.id) {
-							usernames.splice(usernames.indexOf(user),1);
-						}
-					});
-				}
-				socket.broadcast.emit('get users', usernames);
-		  });
+		socket.on('disconnect', function(data) {
+			if(addedUser) {
+				usernames.forEach(function(user) {
+					if(user.id === socket.id) {
+						usernames.splice(usernames.indexOf(user), 1);
+					}
+				});
+			}
+			socket.broadcast.emit('get users', usernames);
+		});
 
 
 	}); //end io.on
