@@ -1,11 +1,42 @@
 body {
-	font-family: futura;
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
 }
 
 li {
 	list-style-type: none;
+	margin: 5px 0px;
 }
 
+#instruction-window {
+  padding: 40px;
+  width: 300px;
+	height: 350px;
+  background-color: rgba(255, 255, 255, 0.5);
+	color: white;
+	border: 2px solid white;
+  margin: auto;
+  border-radius: 2px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	/*margin: 100px auto;*/
+}
+
+#play-button {
+	display: block;
+	margin: 0 auto;
+	padding: 10px;
+}
 
 .invite-button {
 	top: -15px;
@@ -14,22 +45,49 @@ li {
 
 #message-box {
 	box-sizing: border-box;
-	border: 1px solid black;
-	width: 200px;
+	background-color: white;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+	width: 90%;
 	height: 150px;
 	overflow: auto;
 }
 
 #messages {
 	list-style-type: none;
+	background: rgba(255, 255, 255, 0.7);
+	border-radius: 5px;
+	margin: 5px;
+	padding: 5px;
+}
+
+#message-content {
+	padding: 5px;
 }
 
 #login {
+	text-align: center;
 	display: none;
+	padding: 20px;
+  width: 200px;
+	height: 100px;
+  background-color: rgba(226, 226, 222, 0.7);
+	color: white;
+	border: 2px solid white;
+  margin: auto;
+  border-radius: 2px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
 
 #global-chat {
 	display: none;
+	/*padding: 0 10px;*/
 }
 
 .invite {
@@ -56,24 +114,24 @@ li {
  font-family: Helvetica, sans-serif;
 }
 
-.searchbar {
+.header {
   /*border: 1px dotted black;*/
-  background-color: powderblue;
   height: 15%;
+	margin-bottom: 20px;
+	padding: 10px;
 }
 
 .sidebar {
   /*border: 1px dotted black;*/
-  background-color: lightgrey;
-  margin-top: 10px;
+  background-color: rgba(175, 191, 206, 0.5);;
   width: 20%;
   height: 80%;
   float: left;
+	padding: 0 0 0 10px;
 }
 
-.one-player {
+#game-container {
   /*border: 1px dotted black;*/
-  background-color: turquoise;
   margin-left: 22%;
   margin-top: 10px;
   width: 76%;

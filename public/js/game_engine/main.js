@@ -1,7 +1,7 @@
 var board_height = 600;
 var board_width = 800;
 
-var game = new Phaser.Game(board_width, board_height, Phaser.CANVAS, 'game_container');
+var game = new Phaser.Game(board_width, board_height, Phaser.CANVAS, 'game-container');
 
 var TankGame = function(game){
 	this.playerTank = null
