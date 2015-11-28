@@ -45,8 +45,8 @@ TankGame.prototype = {
 		this.load.image('player2', '../../assets/player2.png');
 		this.load.image('turret', '../../assets/turret.png');
 		this.load.image('bullet', '../../assets/bullet.png');
-		
-		
+
+
 	},
 
 	create:function(){
@@ -236,13 +236,3 @@ TankGame.prototype = {
 };
 
 game.state.add('Game', TankGame, true);
-
-
-
-
-
-
-
-
-
-

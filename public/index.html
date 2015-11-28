@@ -8,56 +8,60 @@
 </head>
 
 <body>
-	<h4>Font Test</h4>
-	<div id="splashpage">
-			<button id="play-button">Play Game</button>
+	<h2>Test: Twitter Game</h2>
+	<div id="instruction-page">
+		<h3>Instructions</h3>
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam tempora, harum id. Dolor dolorem, in nobis fugit porro unde animi eum? Error laborum cumque in vel veniam, doloribus porro nesciunt.
+		</p>
+		<button id="play-button">Play Twitter Game!</button>
 	</div>
 
 	<div id="login">
-				<div class="loginform">
-					Put in Username
-					<input type="text" type="submit" id="login-input" placeholder="Enter your username">
-					<button id="submit-username">enter</button>
+		<div class="loginform">
+			<h3>Enter A Username</h3>
+			<input type="text" type="submit" id="login-input" placeholder="Enter your username">
+			<button id="submit-username">Enter</button>
+
+		</div>
+	</div>
+
+	<div class="header"></div>
+
+	<!-- Chat Box -->
+	<div id="global-chat">
+		<div class="chat-container">
+			<h4 id="users-header">Users Online</h3>
+				<div class="users-online">
 
 				</div>
-			</div>
-
-<!-- Chat Box -->
-<div id="global-chat">
-	<div class="chat-container">
-			<h3 id="users-header">Users</h3>
-			<div class="users-online">
-
-			</div>
-	</div>
-	<!-- where the messages are appended to -->
+		</div>
+		<!-- where the messages are appended to -->
 		<div id="message-box">
 			<ul id="messages"></ul>
 		</div>
 		<!-- where you type your message in the chat -->
-	<div class="message-input">
-		<div class='message-form' action="">
-			<input id="message-content"/>
-			<button id="send-message">Send</button>
+		<div class="message-input">
+			<div class='message-form' action="">
+				<input id="message-content" />
+				<button id="send-message">Send</button>
+			</div>
 		</div>
 	</div>
-</div>
 
-<div class="invite">
-	<h2>invitation has arrived</h2>
-	<button class='accept-button'>accept</button>
-</div>
+	<div id="invite-section">
+		<div class="invite">
+			<button class='accept-button'>accept</button>
+		</div>
 
-<div class="sent-invite">
-	<h2>Waiting for opponent response...</h2>
-</div>
+		<div class="sent-invite">
+		</div>
 
-<div id="game-div">
+	</div>
+	<!--end invite section-->
 
-</div>
-
-<!-- invite player to game -->
-	<!-- <button id="invite">Send Invite To Play</button> -->
+	<div id="game-div">
+	</div>
 
 	<!-- this is where the game will be loaded -->
 	<div id="game_container"></div>
