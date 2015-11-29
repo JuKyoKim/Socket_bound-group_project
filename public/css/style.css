@@ -74,6 +74,14 @@ ul {
 	top: -15px;
 	position: relative;
 }
+#chat-container {
+	background-color: white;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+	width: 90%;
+	height: 150px;
+	overflow: auto;
+}
 
 #message-box {
 	box-sizing: border-box;
