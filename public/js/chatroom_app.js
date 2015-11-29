@@ -26,7 +26,6 @@ socket.on('get users', getUsers);
 
 function getUsers(users) {
 	$('.users-online').empty();
-	// console.log(users);
 	if(users.length > 0) {
 		users.forEach(function(user) {
 			if(user.username !== username && !user.inGame) {
@@ -51,7 +50,7 @@ function setUsername() {
 
 		//welcome message displayed on main page
 		var welcomeMsg = $('<h4 id="welcome">').text('Welcome, ' + username + ".");
-		$('.sidebar').append(welcomeMsg);
+		$('.sidebar').prepend(welcomeMsg);
 
 		//tell server your username
 		socket.emit('add user', username);
@@ -80,6 +79,8 @@ socket.on('new message', function(data) {
 
 function addChatMessage(data) {
 	//renders message to the chat window as user: message content
+	var newLi = $('<li id="chatmessage">');
+	$("#messages").append(newLi);
 	var $usernameDiv = $('<span class="username"/>').text(data.username + ": ").css('color', 'red');
 	var $messageBodyDiv = $('<span class="messageBody">').text(data.message + " ");
 	var $messageDiv = $('#messages');
@@ -118,8 +119,6 @@ function sendInvite(e) {
 //when a user presses accept it will start a game
 function startGame(e) {
 	opponentid = $(this).attr('socketid');
-	console.log(opponentid);
-	// console.log(opponentid);
 	socket.emit('start game', {
 		opponent: opponentid,
 		player: socket.id
