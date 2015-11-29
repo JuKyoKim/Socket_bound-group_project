@@ -121,14 +121,6 @@ li {
 	display: none;
 }
 
-#game-div {
-	display: none;
-	height: 300px;
-	width: 300px;
-	box-sizing: border-box;
-	border: 1px black solid;
-}
-
 .container {
  /*position: relative;*/
  border: 1px solid black;
@@ -164,6 +156,7 @@ li {
   margin-top: 10px;
   width: 76%;
   height: 70%;
+	display: none;
 }
 
 .sidebar-top {
