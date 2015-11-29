@@ -138,7 +138,7 @@ socket.on('start game', function(players) {
 	$('#messages').empty();
 	$('#invite-section').hide();
 	$('#game-div').show();
-	$('#game-div').text('Game goes here.');
+	// $('#game-div').text('Game goes here.');
 });
 
 
