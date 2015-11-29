@@ -51,13 +51,11 @@ function setUsername() {
 
 		//welcome message displayed on main page
 		var welcomeMsg = $('<h4 id="welcome">').text('Welcome, ' + username + ".");
-		$(welcomeMsg).append("<hr>");
-		$('#global-chat').prepend(welcomeMsg);
+		$('.sidebar').append(welcomeMsg);
 
 		//tell server your username
 		socket.emit('add user', username);
 	}
-	$('#login-input').val('');
 	//gets user list of people already logged in
 	socket.emit('get users', getUsers);
 }
@@ -82,19 +80,17 @@ socket.on('new message', function(data) {
 
 function addChatMessage(data) {
 	//renders message to the chat window as user: message content
-	var newLi = $('<li id="chatmessage">');
-	$("#messages").append(newLi);
 	var $usernameDiv = $('<span class="username"/>').text(data.username + ": ").css('color', 'red');
 	var $messageBodyDiv = $('<span class="messageBody">').text(data.message + " ");
-	// var $messageDiv = $('#messages');
-	$(newLi).append($usernameDiv, $messageBodyDiv);
+	var $messageDiv = $('#messages');
+	$messageDiv.append($usernameDiv, $messageBodyDiv);
 }
 
 //shows the invite from html document
 socket.on('send invite', function(data) {
 	$('.invite').show();
 	$('.accept-button').attr('socketid', data.player);
-	var inviteStatus = $('<h3 class="invite-arrived">').text(data.name + ' invited you to play a game.');
+	var inviteStatus = $('<h3 class="invite-arrived">').text('invitation to play from ' + data.name + ".");
 	$('.invite').prepend(inviteStatus);
 });
 
@@ -137,7 +133,7 @@ socket.on('start game', function(players) {
 	$("#game-container").attr('playerid', socket.id);
 
   // $('#users-header').hide();
-  $('#global-chat').css('');
+  $('#global-chat').hide();
   $('#send-message').attr('id','send-private-message');
 	$('#messages').empty();
 	$('#invite-section').hide();
