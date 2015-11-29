@@ -16,7 +16,7 @@ var username;
 var opponentid;
 
 var showLogin = function() {
-	$('#instruction-page').hide();
+	$('#instruction-window').hide();
 	$('#login').show();
 	socket.emit('get users', "getting users");
 };
@@ -51,7 +51,7 @@ function setUsername() {
 
 		//welcome message displayed on main page
 		var welcomeMsg = $('<h4 id="welcome">').text('Welcome, ' + username + ".");
-		$('.header').append(welcomeMsg);
+		$('.sidebar').append(welcomeMsg);
 
 		//tell server your username
 		socket.emit('add user', username);
@@ -129,22 +129,23 @@ function startGame(e) {
 socket.on('start game', function(players) {
 
 	//set up opponent and player identification ids to emit events to later
-	$("#game-div").attr('opponentid', opponentid);
-	$("#game-div").attr('playerid', socket.id);
+	$("#game-container").attr('opponentid', opponentid);
+	$("#game-container").attr('playerid', socket.id);
 
-  $('#users-header').hide();
+  // $('#users-header').hide();
   $('.users-online').hide();
   $('#send-message').attr('id','send-private-message');
 	$('#messages').empty();
 	$('#invite-section').hide();
-	$('#game-div').show();
-	$('#game-div').text('Game goes here.');
+	$('#game-container').show();
+	// $('#game-div').text('Game goes here.');
 });
 
 
 
 function privateMessage(e) {
-	opponentid = $(this).parent().parent().parent().parent().find('#game-div').attr('opponentid');
+	debugger;
+	opponentid = $(this).parent().parent().parent().parent().find('#game-container').attr('opponentid');
 
 	var message = $('#message-content').val();
 

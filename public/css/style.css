@@ -1,11 +1,65 @@
+
+/*@keyframes AnimationName {
+    0%{background-position:86% 0%}
+    50%{background-position:15% 100%}
+    100%{background-position:86% 0%}
+}*/
 body {
-	font-family: futura;
+	font-family: 'Quattrocento Sans', sans-serif;
+	font-size: 14px;
+	margin: 0;
+	padding: 0;
+	/*background: linear-gradient(234deg, #d0e3fa, #accef6, #75b3fa, #4099ff, #0074fa);
+	background-size: 1000% 1000%;
+	animation: AnimationName 25s ease infinite;*/
+}
+
+#hide-background {
+	height: 100%;
+	width: 100%;
+	background-color: #4099FF;
+	position: absolute;
+	z-index: 1;
+}
+ul {
+	margin: 0;
+	padding: 0;
 }
 
 li {
 	list-style-type: none;
+	margin: 5px 0px;
 }
 
+#instruction-window {
+  padding: 40px;
+  width: 350px;
+	height: 300px;
+  background-color: rgba(255, 255, 255, 0.5);
+	color: black;
+	border: 2px solid #809ab2;
+  margin: auto;
+  border-radius: 2px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	/*margin: 100px auto;*/
+}
+
+#instruction-window h2 {
+	margin: 0;
+	padding: 0;
+}
+
+#play-button {
+	display: block;
+	margin: 0 auto;
+	padding: 10px;
+}
 
 .invite-button {
 	top: -15px;
@@ -14,22 +68,49 @@ li {
 
 #message-box {
 	box-sizing: border-box;
-	border: 1px solid black;
-	width: 200px;
+	background-color: white;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+	width: 90%;
 	height: 150px;
 	overflow: auto;
 }
 
 #messages {
 	list-style-type: none;
+	background: rgba(255, 255, 255, 0.7);
+	border-radius: 5px;
+	margin: 5px;
+	padding: 5px;
+}
+
+#message-content {
+	padding: 5px;
 }
 
 #login {
+	text-align: center;
 	display: none;
+	padding: 20px;
+  width: 200px;
+	height: 100px;
+  background-color: rgba(226, 226, 222, 0.7);
+	color: black;
+	border: 2px solid #809ab2;
+  margin: auto;
+  border-radius: 2px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
 
 #global-chat {
 	display: none;
+	/*padding: 0 10px;*/
 }
 
 .invite {
@@ -40,44 +121,42 @@ li {
 	display: none;
 }
 
-#game-div {
-	display: none;
-	height: 300px;
-	width: 300px;
-	box-sizing: border-box;
-	border: 1px black solid;
-}
-
 .container {
  /*position: relative;*/
  border: 1px solid black;
  width: 100%;
  height: 700px;
- font-family: Helvetica, sans-serif;
+ font-family: 'Quattrocento Sans', sans-serif;
 }
 
-.searchbar {
+.header {
   /*border: 1px dotted black;*/
-  background-color: powderblue;
+	text-align: center;
+	color: #4099FF;
+	/*font-size: 20px;*/
   height: 15%;
+	margin-bottom: 20px;
+	padding: 5px;
 }
 
 .sidebar {
   /*border: 1px dotted black;*/
-  background-color: lightgrey;
-  margin-top: 10px;
+  background-color: rgba(175, 191, 206, 0.5);
+	border-top: 2px solid #809ab2;
   width: 20%;
-  height: 80%;
+  height: 500px;
   float: left;
+	padding: 0 0 0 10px;
 }
 
-.one-player {
+#game-container {
+	border-radius: 10px;
   /*border: 1px dotted black;*/
-  background-color: turquoise;
   margin-left: 22%;
   margin-top: 10px;
   width: 76%;
-  height: 80%;
+  height: 70%;
+	display: none;
 }
 
 .sidebar-top {

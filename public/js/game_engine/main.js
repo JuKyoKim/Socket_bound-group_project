@@ -1,7 +1,7 @@
-var board_height = 600;
+var board_height = 500;
 var board_width = 800;
 
-var game = new Phaser.Game(board_width, board_height, Phaser.CANVAS, 'game_container');
+var game = new Phaser.Game(board_width, board_height, Phaser.CANVAS, 'game-container');
 
 var TankGame = function(game){
 
@@ -30,19 +30,33 @@ var TankGame = function(game){
 	this.enemyCursor = null;
 	this.enemyFirebutton = null;
 	this.enemyAngleText = null;
+<<<<<<< HEAD
+=======
+
+	this.bullet = null;
+	// this.background = null;
+
+>>>>>>> 9f99b5513017a2942b10cb783e7f5251440c33ad
 };
 
 TankGame.prototype = {
 	preload:function(){
 		this.physics.startSystem(Phaser.Physics.ARCADE);
         this.physics.arcade.gravity.y = 400;
+<<<<<<< HEAD
 		this.load.image('background1', '../../assets/background1.png');
         this.load.image('background2', '../../assets/background2.png');
         this.load.image('background3', '../../assets/background3.png');
         this.load.image('button', '../../assets/button.png');
+=======
+		this.load.image('background1', '../../assets/background9.jpg');
+        this.load.image('background2', '../../assets/background6.jpg');
+        this.load.image('background3', '../../assets/background7.jpg');
+				this.load.image('background4', '../../assets/background8.jpg');
+>>>>>>> 9f99b5513017a2942b10cb783e7f5251440c33ad
 
 		this.load.image('player1', '../../assets/player1.png');
-		this.load.image('player2', '../../assets/player2.png');
+		this.load.image('player2', '../../assets/tank.png');
 		this.load.image('turret', '../../assets/turret.png');
 		this.load.image('bullet', '../../assets/bullet.png');
 
@@ -51,8 +65,8 @@ TankGame.prototype = {
 
 	create:function(){
 		//sets the background to any of the three
-		var rand = Math.round(Math.random()*3);
-		rand >= 1 ? rand = 1: rand = 2;
+		var rand = Math.floor((Math.random()*4)+1);
+		// rand >= 1 ? rand = 1: rand = 2;
 		this.background = this.add.sprite(0, 0, 'background'+rand);
 
 		//fire button universal
@@ -61,7 +75,13 @@ TankGame.prototype = {
 		//the main body
 		this.playerTank = this.add.sprite(0+Math.round(Math.random()*100), board_height-50, 'player1');
 		//turret
+<<<<<<< HEAD
 		this.playerTurret = this.add.sprite(this.playerTank.x + 25, this.playerTank.y + 14, 'turret');		
+=======
+		this.playerTurret = this.add.sprite(this.playerTank.x + 25, this.playerTank.y + 14, 'turret');
+        // default power set to 300 will most likely remove this part
+        this.playerPower = 300;
+>>>>>>> 9f99b5513017a2942b10cb783e7f5251440c33ad
         // text for the power
         this.playerText = this.add.text(10, 8, 'Power: 300', { font: "18px Arial", fill: "#ffffff" });
         //hp text
@@ -72,9 +92,9 @@ TankGame.prototype = {
         this.playerCursor = this.input.keyboard.createCursorKeys();
 		
         //the main body
-		this.enemyTank = this.add.sprite(board_width-(50+Math.round(Math.random()*100)), board_height-50, 'player2');
+		this.enemyTank = this.add.sprite(board_width-(50+Math.round(Math.random()*100)), board_height-70, 'player2');
 		//turret
-		this.enemyTurret = this.add.sprite(this.enemyTank.x + 25, this.enemyTank.y + 14, 'turret');
+		this.enemyTurret = this.add.sprite(this.enemyTank.x + 35, this.enemyTank.y + 34, 'turret');
 		//becuase the angling doesnt work for player 2 im going to just anchor a point on my turret 2
 		this.enemyTurret.anchor.setTo(0,0);
 		// text for the power
@@ -98,14 +118,14 @@ TankGame.prototype = {
 		this.actionPerTurn();
 
 		if (this.bullet.exists){
-				
+
 			//if the bullet overlaps a player remove the bullet
 			this.hit();
 
 			//check to see if it hit land
 			this.LandHo();
 
-				
+
         }
 	},
 
@@ -209,19 +229,19 @@ TankGame.prototype = {
 				}
 				return;
 			}
-		}	
+		}
 	},
 	actionPerTurn:function(){
 
 		if(this.turn % 2 === 0){
-	
+
 			//  Allow them to set the angle, between -90 (straight up) and 0 (facing to the right)
 			if (this.playerCursor.up.isDown && this.playerTurret.angle > -90){
 			    this.playerTurret.angle--;
 			}else if (this.playerCursor.down.isDown && this.playerTurret.angle < 0){
 			    this.playerTurret.angle++;
 			}
-	
+
 			//  Update the text
 			this.playerAngleText.text = 'angle: ' + this.playerTurret.angle;
 	    	this.playerText.text = 'power: ' + this.playerPower;
@@ -233,7 +253,7 @@ TankGame.prototype = {
 			}else if (this.enemyCursor.down.isDown){
 			    this.enemyTurret.angle--;
 			}
-	  		
+
 		}
 	}
 

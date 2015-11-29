@@ -5,62 +5,73 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<link rel="stylesheet" href="./css/style.css">
+	<link href='https://fonts.googleapis.com/css?family=Quattrocento+Sans' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-	<h2>Test: Twitter Game</h2>
-	<div id="instruction-page">
-		<h3>Instructions</h3>
-		<p>
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam tempora, harum id. Dolor dolorem, in nobis fugit porro unde animi eum? Error laborum cumque in vel veniam, doloribus porro nesciunt.
-		</p>
-		<button id="play-button">Play Twitter Game!</button>
-	</div>
-
-	<div id="login">
-		<div class="loginform">
-			<h3>Enter A Username</h3>
-			<input type="text" type="submit" id="login-input" placeholder="Enter your username">
-			<button id="submit-username">Enter</button>
-
+	<div id="container">
+		<div id="hide-background"></div>
+		<div class="header">
+			<h1>TWITTER ATTACK</h1>
+    </div>
+		<div id="instruction-window">
+			<h2 align="center">Welcome to Twitter Attack!</h2>
+			<p>
+				<h3>Goal</h3>
+				Eliminate the other player with bullets by decreasing their hp to 0. The strength of a player’s attack depends on the tweet result of their search word.
+				<h3>Instructions</h3>
+				<ul>
+					<li>To play, just think of a word and type it in.</li>
+					<li>How many times was that word tweeted in the past 60 seconds?</li>
+					<li>The number of times that word was tweeted is how far your bullet goes!</li>
+				</ul>
+			</p>
+			<button id="play-button">Play Twitter Game!</button>
 		</div>
-	</div>
-
-	<div class="header"></div>
-
-	<!-- Chat Box -->
-	<div id="global-chat">
-		<div class="chat-container">
-			<h4 id="users-header">Users Online</h3>
-				<div class="users-online">
-
-				</div>
-		</div>
-		<!-- where the messages are appended to -->
-		<div id="message-box">
-			<ul id="messages"></ul>
-		</div>
-		<!-- where you type your message in the chat -->
-		<div class="message-input">
-			<div class='message-form' action="">
-				<input id="message-content" />
-				<button id="send-message">Send</button>
+		<div id="login">
+			<div class="loginform">
+				<h3>Enter A Username</h3>
+				<input type="text" type="submit" id="login-input" placeholder="Username">
+				<button id="submit-username">Submit</button>
 			</div>
 		</div>
-	</div>
 
-	<div id="invite-section">
-		<div class="invite">
-			<button class='accept-button'>accept</button>
+
+		<!-- Chat Box -->
+		<div class="sidebar">
+			<div id="global-chat">
+				<div class="chat-container">
+				<h3>Chatroom</h3>
+					<h4 id="users-header">Users Online</h3>
+						<div class="users-online">
+
+						</div>
+				</div>
+				<!-- where the messages are appended to -->
+				<div id="message-box">
+					<ul id="messages"></ul>
+				</div>
+				<!-- where you type your message in the chat -->
+				<div class="message-input">
+					<div class='message-form' action="">
+						<input id="message-content" />
+						<button id="send-message">Send</button>
+					</div>
+				</div>
+			</div>
+
+			<div id="invite-section">
+				<div class="invite">
+					<button class='accept-button'>accept</button>
+				</div>
+
+				<div class="sent-invite">
+				</div>
+
+			</div>
 		</div>
+		<!--end invite section-->
 
-		<div class="sent-invite">
-		</div>
-
-	</div>
-	<!--end invite section-->
-
-	<div id="game-div">
 	</div>
 
 	<!-- this is where the game will be loaded -->
@@ -75,7 +86,13 @@
 	<script src="./js/chatroom_app.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.4.4/phaser.min.js"></script>
 	<script src="./js/game_engine/main.js"></script>
-
+	<script>
+	$(document).ready(function(){
+      $('#submit-username').click(function() {
+        $('#hide-background').css('visibility', 'hidden');
+      });
+    });
+	</script>
 </body>
 
 </html>
