@@ -1,10 +1,3 @@
-// $.ajax({
-// 	url: "http://localhost:3000/pokemons/searchByName/"+pokemon_name,
-// 	method: "GET",
-// 	dataType: "json"
-// }).done(renderOnePoke);
-	
-
 var board_height = 600;
 var board_width = 800;
 
@@ -121,35 +114,65 @@ TankGame.prototype = {
 		if(this.bullet.exists){
 			return;
 		}
-		
-		
-		if(this.turn % 2 === 0){	
 
-			//reset the bullet back to the turret
-			this.bullet.reset(this.playerTurret.x, this.playerTurret.y);
-
-			//find the turrets ending by setting a point and finding rotation
-			var p1 = new Phaser.Point(this.playerTurret.x, this.playerTurret.y);
-			p1.rotate(p1.x, p1.y, this.playerTurret.rotation, false, 34);
-
-			//according to the doc I send rotation and power, and it wil; return a velocity i set to the third (which is bullet)
-			this.physics.arcade.velocityFromRotation(this.playerTurret.rotation, this.playerPower, this.bullet.body.velocity);
-			
-			this.turn += 1;
+		var searchVal = $("#search_value").val();
+		if(searchVal.trim() === ''){ //check for empty field or spaces
+			console.log("not defined");
+			return;
 		}else{
 
-			//reset the bullet back to the turret.
-			this.bullet.reset(this.enemyTurret.x, this.enemyTurret.y);
+			if(this.turn % 2 === 0){
 
-			//find the turrets ending
-			var p1 = new Phaser.Point(this.enemyTurret.x, this.enemyTurret.y);
-			p1.rotate(p1.x, p1.y, this.enemyTurret.rotation, false, 34);
+				var data = $.ajax({
+					url: "http://localhost:3000/mention/"+searchVal,
+					method: "GET",
+					dataType: "json"
+				}).done(function(data){
+					return data.tweetsPerSec;
+				});
+				console.log(data);
 
-			//according to the doc I send rotation and power, and it wil; return a velocity i set to the third (which is bullet)
-			this.physics.arcade.velocityFromRotation(this.enemyTurret.rotation, this.enemyPower, this.bullet.body.velocity);	
+				//reset the bullet back to the turret
+				this.bullet.reset(this.playerTurret.x, this.playerTurret.y);
 
-			this.turn += 1;
+				//find the turrets ending by setting a point and finding rotation
+				var p1 = new Phaser.Point(this.playerTurret.x, this.playerTurret.y);
+				p1.rotate(p1.x, p1.y, this.playerTurret.rotation, false, 34);
+
+				//according to the doc I send rotation and power, and it wil; return a velocity i set to the third (which is bullet)
+				this.physics.arcade.velocityFromRotation(this.playerTurret.rotation, this.playerPower, this.bullet.body.velocity);
+				
+				this.turn += 1;
+			}else{
+				
+				var data = $.ajax({
+					url: "http://localhost:3000/mention/"+searchVal,
+					method: "GET",
+					dataType: "json"
+				});
+				console.log(data);
+				console.log(data.responseJSON.tweetsPerSec);
+
+				//reset the bullet back to the turret.
+				this.bullet.reset(this.enemyTurret.x, this.enemyTurret.y);
+
+				//find the turrets ending
+				var p1 = new Phaser.Point(this.enemyTurret.x, this.enemyTurret.y);
+				p1.rotate(p1.x, p1.y, this.enemyTurret.rotation, false, 34);
+
+				//according to the doc I send rotation and power, and it wil; return a velocity i set to the third (which is bullet)
+				this.physics.arcade.velocityFromRotation(this.enemyTurret.rotation, this.enemyPower, this.bullet.body.velocity);	
+
+				//  Update the text
+				this.enemyAngleText.text = 'angle: ' + this.enemyTurret.angle;
+	    		this.enemyText.text = 'power: ' + this.enemyPower;
+				
+				this.turn += 1;
+			}
 		}
+		
+		
+			
 	},
 
 	LandHo: function () {
@@ -189,13 +212,8 @@ TankGame.prototype = {
 		}	
 	},
 	actionPerTurn:function(){
+
 		if(this.turn % 2 === 0){
-			//power adding or subtracting
-			// if (this.playerCursor.left.isDown && this.playerPower > 100){
-			//     this.playerPower -= 2;
-			// }else if (this.playerCursor.right.isDown && this.playerPower < 600){
-			//     this.playerPower += 2;
-			// }
 	
 			//  Allow them to set the angle, between -90 (straight up) and 0 (facing to the right)
 			if (this.playerCursor.up.isDown && this.playerTurret.angle > -90){
@@ -208,14 +226,6 @@ TankGame.prototype = {
 			this.playerAngleText.text = 'angle: ' + this.playerTurret.angle;
 	    	this.playerText.text = 'power: ' + this.playerPower;
 		}else{
-			//power adding or subtracting
-			// if (this.enemyCursor.left.isDown && this.enemyPower > 100){
-			//     this.enemyPower -= 2;
-			// }else if (this.enemyCursor.right.isDown && this.enemyPower < 600){
-			//     this.enemyPower += 2;
-			// }
-
-
 
 			//because i cant get the turret to pivot at a different point i cant set angle limitations
 			if (this.enemyCursor.up.isDown){
@@ -223,10 +233,6 @@ TankGame.prototype = {
 			}else if (this.enemyCursor.down.isDown){
 			    this.enemyTurret.angle--;
 			}
-	
-			//  Update the text
-			this.enemyAngleText.text = 'angle: ' + this.enemyTurret.angle;
-	    	this.enemyText.text = 'power: ' + this.enemyPower;
 	  		
 		}
 	}
