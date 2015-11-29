@@ -13,7 +13,7 @@
 		<div id="hide-background"></div>
 		<div class="header">
 			<h1>TWITTER ATTACK</h1>
-    </div>
+		</div>
 		<div id="instruction-window">
 			<h2 align="center">Welcome to Twitter Attack!</h2>
 			<p>
@@ -38,24 +38,32 @@
 
 
 		<!-- Chat Box -->
-		<div class="sidebar">
+		<!-- <div class="sidebar"> -->
 			<div id="global-chat">
 				<div class="chat-container">
-				<h3>Chatroom</h3>
-					<h4 id="users-header">Users Online</h3>
-						<div class="users-online">
+					<h3>See Who Is Online. Ask Them To Play.</h3>
 
+
+					<div id="users-div">
+						<h4>Users Online</h3>
+
+							<div class="users-online">
+
+								<!-- li's of the users online get added here -->
+							</div>
+					</div>
+
+				<div id="messages-div">
+					<!-- where the messages are appended to -->
+					<div id="message-box">
+						<ul id="messages"></ul>
+					</div>
+					<!-- where you type your message in the chat -->
+					<div class="message-input">
+						<div class='message-form' action="">
+							<input id="message-content" />
+							<button id="send-message">Send</button>
 						</div>
-				</div>
-				<!-- where the messages are appended to -->
-				<div id="message-box">
-					<ul id="messages"></ul>
-				</div>
-				<!-- where you type your message in the chat -->
-				<div class="message-input">
-					<div class='message-form' action="">
-						<input id="message-content" />
-						<button id="send-message">Send</button>
 					</div>
 				</div>
 			</div>
@@ -69,7 +77,8 @@
 				</div>
 
 			</div>
-		</div>
+					</div>
+		<!-- </div> -->
 		<!--end invite section-->
 
 		<!-- this is where the game will be loaded -->
@@ -84,11 +93,11 @@
 	<script src="./js/game_engine/player.js"></script>
 	<script src="./js/game_engine/main.js"></script>
 	<script>
-	$(document).ready(function(){
-      $('#submit-username').click(function() {
-        $('#hide-background').css('visibility', 'hidden');
-      });
-    });
+		$(document).ready(function() {
+			$('#submit-username').click(function() {
+				$('#hide-background').css('visibility', 'hidden');
+			});
+		});
 	</script>
 </body>
 

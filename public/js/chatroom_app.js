@@ -51,11 +51,13 @@ function setUsername() {
 
 		//welcome message displayed on main page
 		var welcomeMsg = $('<h4 id="welcome">').text('Welcome, ' + username + ".");
-		$('.sidebar').append(welcomeMsg);
+		$(welcomeMsg).append("<hr>");
+		$('#global-chat').prepend(welcomeMsg);
 
 		//tell server your username
 		socket.emit('add user', username);
 	}
+	$('#login-input').val('');
 	//gets user list of people already logged in
 	socket.emit('get users', getUsers);
 }
@@ -80,17 +82,19 @@ socket.on('new message', function(data) {
 
 function addChatMessage(data) {
 	//renders message to the chat window as user: message content
+	var newLi = $('<li id="chatmessage">');
+	$("#messages").append(newLi);
 	var $usernameDiv = $('<span class="username"/>').text(data.username + ": ").css('color', 'red');
 	var $messageBodyDiv = $('<span class="messageBody">').text(data.message + " ");
-	var $messageDiv = $('#messages');
-	$messageDiv.append($usernameDiv, $messageBodyDiv);
+	// var $messageDiv = $('#messages');
+	$(newLi).append($usernameDiv, $messageBodyDiv);
 }
 
 //shows the invite from html document
 socket.on('send invite', function(data) {
 	$('.invite').show();
 	$('.accept-button').attr('socketid', data.player);
-	var inviteStatus = $('<h3 class="invite-arrived">').text('invitation to play from ' + data.name + ".");
+	var inviteStatus = $('<h3 class="invite-arrived">').text(data.name + ' invited you to play a game.');
 	$('.invite').prepend(inviteStatus);
 });
 
@@ -133,7 +137,7 @@ socket.on('start game', function(players) {
 	$("#game-container").attr('playerid', socket.id);
 
   // $('#users-header').hide();
-  $('.users-online').hide();
+  $('#global-chat').css('');
   $('#send-message').attr('id','send-private-message');
 	$('#messages').empty();
 	$('#invite-section').hide();
@@ -144,7 +148,6 @@ socket.on('start game', function(players) {
 
 
 function privateMessage(e) {
-	debugger;
 	opponentid = $(this).parent().parent().parent().parent().find('#game-container').attr('opponentid');
 
 	var message = $('#message-content').val();

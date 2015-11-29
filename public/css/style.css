@@ -21,14 +21,21 @@ body {
 	position: absolute;
 	z-index: 1;
 }
+
 ul {
 	margin: 0;
 	padding: 0;
+	display: block;
 }
 
-li {
-	list-style-type: none;
+.user-text {
 	margin: 5px 0px;
+	list-style: none;
+	display: block;
+}
+
+.chat-container h3 {
+	text-align: center;
 }
 
 #instruction-window {
@@ -72,7 +79,7 @@ li {
 	border: 1px solid lightgray;
 	border-radius: 5px;
 	width: 90%;
-	height: 150px;
+	height: 350px;
 	overflow: auto;
 }
 
@@ -86,6 +93,7 @@ li {
 
 #message-content {
 	padding: 5px;
+	width: 70%;
 }
 
 #login {
@@ -110,15 +118,61 @@ li {
 
 #global-chat {
 	display: none;
-	/*padding: 0 10px;*/
+	margin: 0 auto;
+	width: 50%;
+	height: 500px;
+	background-color: rgba(175, 191, 206, 0.5);
+	border: 2px solid #809ab2;
+	padding: 10px;
 }
+
+#messages-div {
+	width: 80%;
+	float: right;
+	position: relative;
+	left: 20px;
+}
+
+
+.chat-container {
+	width: 100%;
+	float: left;
+	margin: 0 auto;
+	padding: 5px;
+}
+
+#users-div {
+	float: left;
+	width: 20%;
+}
+
 
 .invite {
 	display: none;
 }
 
-.sent-invite {
+.sent-invite, .invite {
 	display: none;
+	margin: 0 auto;
+	position: absolute;
+	width: 50%;
+	top: 50%;
+	background: white;
+	box-sizing: border-box;
+	border: 3px black solid;
+	border-radius: 10px;
+	z-index: 1000;
+	float: left;
+}
+
+.waiting-msg, .invite-arrived {
+	text-align: center;
+}
+
+.accept-button {
+	position: relative;
+	left: 45%;
+	top: -10px;
 }
 
 .container {
@@ -141,12 +195,19 @@ li {
 
 .sidebar {
   /*border: 1px dotted black;*/
-  background-color: rgba(175, 191, 206, 0.5);
+  /*background-color: rgba(175, 191, 206, 0.5);
 	border-top: 2px solid #809ab2;
   width: 20%;
   height: 500px;
   float: left;
-	padding: 0 0 0 10px;
+	padding: 0 0 0 10px;*/
+	/*margin: 0 auto;
+	width: 50%;
+	height: 500px;
+	background-color: rgba(175, 191, 206, 0.5);
+	border: 2px solid #809ab2;
+	padding: 10px;*/
+
 }
 
 #game-container {
