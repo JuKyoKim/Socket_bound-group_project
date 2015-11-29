@@ -1,3 +1,10 @@
+// $.ajax({
+// 	url: "http://localhost:3000/pokemons/searchByName/"+pokemon_name,
+// 	method: "GET",
+// 	dataType: "json"
+// }).done(renderOnePoke);
+	
+
 var board_height = 600;
 var board_width = 800;
 
@@ -7,6 +14,9 @@ var TankGame = function(game){
 
 	//variables im going to use throughout the game
 	this.turn = 1;
+	this.bullet = null;
+	this.background = null;
+	this.fireButton = null;
 
 	this.playerTank = null;
 	this.playerTurret = null;
@@ -27,10 +37,6 @@ var TankGame = function(game){
 	this.enemyCursor = null;
 	this.enemyFirebutton = null;
 	this.enemyAngleText = null;
-
-	this.bullet = null;
-	this.background = null;
-	
 };
 
 TankGame.prototype = {
@@ -40,6 +46,7 @@ TankGame.prototype = {
 		this.load.image('background1', '../../assets/background1.png');
         this.load.image('background2', '../../assets/background2.png');
         this.load.image('background3', '../../assets/background3.png');
+        this.load.image('button', '../../assets/button.png');
 
 		this.load.image('player1', '../../assets/player1.png');
 		this.load.image('player2', '../../assets/player2.png');
@@ -55,14 +62,13 @@ TankGame.prototype = {
 		rand >= 1 ? rand = 1: rand = 2;
 		this.background = this.add.sprite(0, 0, 'background'+rand);
 
+		//fire button universal
+		this.fireButton = this.add.button((board_width/2)-75, board_height-50, 'button', this.fire, this);
 		/* sets everything for the player 1 and 2 */
-
 		//the main body
 		this.playerTank = this.add.sprite(0+Math.round(Math.random()*100), board_height-50, 'player1');
 		//turret
 		this.playerTurret = this.add.sprite(this.playerTank.x + 25, this.playerTank.y + 14, 'turret');		
-        // default power set to 300 will most likely remove this part
-        this.playerPower = 300;
         // text for the power
         this.playerText = this.add.text(10, 8, 'Power: 300', { font: "18px Arial", fill: "#ffffff" });
         //hp text
@@ -71,17 +77,13 @@ TankGame.prototype = {
         this.playerAngleText = this.add.text(10, 48, 'angle: 0', { font: "18px Arial", fill: "#ffffff" });
         //controls preset for turns
         this.playerCursor = this.input.keyboard.createCursorKeys();
-		this.playerFirebutton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-        this.playerFirebutton.onDown.add(this.fire, this);
-
+		
         //the main body
 		this.enemyTank = this.add.sprite(board_width-(50+Math.round(Math.random()*100)), board_height-50, 'player2');
 		//turret
 		this.enemyTurret = this.add.sprite(this.enemyTank.x + 25, this.enemyTank.y + 14, 'turret');
 		//becuase the angling doesnt work for player 2 im going to just anchor a point on my turret 2
 		this.enemyTurret.anchor.setTo(0,0);
-		// default power set to 300 will most likely remove this part
-		this.enemyPower = 300;
 		// text for the power
 		this.enemyText = this.add.text(board_width - 158, 8, 'Power: 300', { font: "18px Arial", fill: "#ffffff" });
 		//hp text
@@ -90,9 +92,7 @@ TankGame.prototype = {
 		this.enemyAngleText = this.add.text(board_width - 158, 48, 'angle: 0', { font: "18px Arial", fill: "#ffffff" });
 		//controls preset for turns
 		this.enemyCursor = this.input.keyboard.createCursorKeys();
-		this.enemyFirebutton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-        this.enemyFirebutton.onDown.add(this.fire, this);
-
+		
 		//sets up the bullet
 		this.bullet = this.add.sprite(0, 0, 'bullet');
         this.bullet.exists = false;
@@ -191,11 +191,11 @@ TankGame.prototype = {
 	actionPerTurn:function(){
 		if(this.turn % 2 === 0){
 			//power adding or subtracting
-			if (this.playerCursor.left.isDown && this.playerPower > 100){
-			    this.playerPower -= 2;
-			}else if (this.playerCursor.right.isDown && this.playerPower < 600){
-			    this.playerPower += 2;
-			}
+			// if (this.playerCursor.left.isDown && this.playerPower > 100){
+			//     this.playerPower -= 2;
+			// }else if (this.playerCursor.right.isDown && this.playerPower < 600){
+			//     this.playerPower += 2;
+			// }
 	
 			//  Allow them to set the angle, between -90 (straight up) and 0 (facing to the right)
 			if (this.playerCursor.up.isDown && this.playerTurret.angle > -90){
@@ -209,11 +209,14 @@ TankGame.prototype = {
 	    	this.playerText.text = 'power: ' + this.playerPower;
 		}else{
 			//power adding or subtracting
-			if (this.enemyCursor.left.isDown && this.enemyPower > 100){
-			    this.enemyPower -= 2;
-			}else if (this.enemyCursor.right.isDown && this.enemyPower < 600){
-			    this.enemyPower += 2;
-			}
+			// if (this.enemyCursor.left.isDown && this.enemyPower > 100){
+			//     this.enemyPower -= 2;
+			// }else if (this.enemyCursor.right.isDown && this.enemyPower < 600){
+			//     this.enemyPower += 2;
+			// }
+
+
+
 			//because i cant get the turret to pivot at a different point i cant set angle limitations
 			if (this.enemyCursor.up.isDown){
 			    this.enemyTurret.angle ++;
