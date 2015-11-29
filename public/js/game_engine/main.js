@@ -87,7 +87,7 @@ TankGame.prototype = {
 		this.enemyAngleText = this.add.text(board_width - 158, 48, 'angle: 0', { font: "18px Arial", fill: "#ffffff" });
 		//controls preset for turns
 		this.enemyCursor = this.input.keyboard.createCursorKeys();
-		
+
 		//sets up the bullet
 		this.bullet = this.add.sprite(0, 0, 'bullet');
         this.bullet.exists = false;
