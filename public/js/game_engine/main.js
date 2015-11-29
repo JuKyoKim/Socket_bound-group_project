@@ -2,8 +2,9 @@ var board_height = 500;
 var board_width = 800;
 var game = new Phaser.Game(board_width, board_height, Phaser.CANVAS, 'game_screen');
 
-var TankGame = function(game){
+var hp = 500;
 
+var TankGame = function(game){
 	//variables im going to use throughout the game
 	this.turn = 1;
 	this.bullet = null;
@@ -58,11 +59,12 @@ TankGame.prototype = {
 
 		//fire button universal
 		this.fireButton = this.add.button((board_width/2)-75, board_height-50, 'button', this.fire, this);
+		console.log(this.fireButton);
 		/* sets everything for the player 1 and 2 */
 		//the main body
 		this.playerTank = this.add.sprite(0+Math.round(Math.random()*100), board_height-50, 'player1');
 		//turret
-		this.playerTurret = this.add.sprite(this.playerTank.x + 25, this.playerTank.y + 14, 'turret');		
+		this.playerTurret = this.add.sprite(this.playerTank.x + 25, this.playerTank.y + 14, 'turret');
 
         // text for the power
         this.playerText = this.add.text(10, 8, 'Power: ', { font: "18px Arial", fill: "#ffffff" });
@@ -72,7 +74,7 @@ TankGame.prototype = {
         this.playerAngleText = this.add.text(10, 48, 'angle: 0', { font: "18px Arial", fill: "#ffffff" });
         //controls preset for turns
         this.playerCursor = this.input.keyboard.createCursorKeys();
-		
+
         //the main body
 		this.enemyTank = this.add.sprite(board_width-(50+Math.round(Math.random()*100)), board_height-70, 'player2');
 		//turret
@@ -116,7 +118,7 @@ TankGame.prototype = {
 		if(this.bullet.exists){
 			return;
 		}
-		
+
 		var searchVal = $("#search_value").val();
 		var that = this;
 		if(searchVal.trim() === ''){ //check for empty field or spaces
@@ -140,7 +142,7 @@ TankGame.prototype = {
 
 					//according to the doc I send rotation and power, and it wil; return a velocity i set to the third (which is bullet)
 					that.physics.arcade.velocityFromRotation(that.playerTurret.rotation, data.tweetsPerSec, that.bullet.body.velocity);
-					
+
 					that.turn += 1;
 
 					//  Update the text
@@ -165,16 +167,16 @@ TankGame.prototype = {
 
 					//according to the doc I send rotation and power, and it wil; return a velocity i set to the third (which is bullet)
 					that.physics.arcade.velocityFromRotation(that.enemyTurret.rotation, data.tweetsPerSec, that.bullet.body.velocity);
-					
+
 					that.turn += 1;
 					//  Update the text
 					that.enemyAngleText.text = 'angle: ' + that.playerTurret.angle;
 	    			that.enemyText.text = 'power: ' + data.tweetsPerSec;
 				});
 			}//end of the actual firing mech
-			
-		}// end of the else statement		
-			
+
+		}// end of the else statement
+
 	},
 
 	LandHo: function () {

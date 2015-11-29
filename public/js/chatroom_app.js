@@ -127,24 +127,23 @@ function startGame(e) {
 }
 
 socket.on('start game', function(players) {
-
+	$('#game_container').show();
 	//set up opponent and player identification ids to emit events to later
-	$("#game-container").attr('opponentid', opponentid);
-	$("#game-container").attr('playerid', socket.id);
+	$("#game_container").attr('opponentid', opponentid);
+	$("#game_container").attr('playerid', socket.id);
 
   // $('#users-header').hide();
   $('#global-chat').hide();
   $('#send-message').attr('id','send-private-message');
 	$('#messages').empty();
 	$('#invite-section').hide();
-	$('#game-container').show();
 	// $('#game-div').text('Game goes here.');
 });
 
 
 
 function privateMessage(e) {
-	opponentid = $(this).parent().parent().parent().parent().find('#game-container').attr('opponentid');
+	opponentid = $(this).parent().parent().parent().parent().find('#game_container').attr('opponentid');
 
 	var message = $('#message-content').val();
 
@@ -167,6 +166,7 @@ function privateMessage(e) {
 socket.on('private message', function(data) {
 	addChatMessage(data);
 });
+
 
 
 

@@ -4,6 +4,7 @@ module.exports = function(app, io) {
 	var inGame = false;
 	var opponentid;
 	var playerid;
+	var hp;
 
 	io.on('connection', function(socket) {
 		var addedUser = false;
@@ -71,6 +72,15 @@ module.exports = function(app, io) {
 			socket.emit('start game', data);
 		});
 
+
+		//send HP
+		socket.on('send HP', function(hp) {
+			//global variable set on top of this page
+			hp = hp;
+			console.log(opponentid);
+			socket.broadcast.to(opponentid).emit('send HP', hp);
+			socket.emit('send HP', hp);
+		});
 
 		// when the user disconnects.. perform this
 		socket.on('disconnect', function(data) {
