@@ -15,10 +15,11 @@ var socket = io();
 var username;
 var opponentid;
 
+
 var showLogin = function() {
 	$('#instruction-window').hide();
 	$('#login').show();
-	socket.emit('get users', "getting users");
+	// socket.emit('get users', "getting users");
 };
 
 //get users that are already there
@@ -50,7 +51,7 @@ function setUsername() {
 
 		//welcome message displayed on main page
 		var welcomeMsg = $('<h4 id="welcome">').text('Welcome, ' + username + ".");
-		$('.sidebar').prepend(welcomeMsg);
+		$('#global-chat').prepend(welcomeMsg);
 
 		//tell server your username
 		socket.emit('add user', username);

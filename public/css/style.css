@@ -32,6 +32,8 @@ ul {
 	margin: 5px 0px;
 	list-style: none;
 	display: block;
+	position: relative;
+	margin-bottom: -10px;
 }
 
 .chat-container h3 {
@@ -144,6 +146,16 @@ ul {
 #users-div {
 	float: left;
 	width: 20%;
+}
+
+.users-online {
+	position: relative;
+	bottom: 10px;
+}
+
+#users-div h4 {
+	position: relative;
+	bottom: 10px;
 }
 
 

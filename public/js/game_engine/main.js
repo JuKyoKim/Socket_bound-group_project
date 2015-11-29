@@ -93,7 +93,6 @@ TankGame.prototype = {
 		this.enemyCursor = this.input.keyboard.createCursorKeys();
 		this.enemyFirebutton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         this.enemyFirebutton.onDown.add(this.fire, this);
-
 		//sets up the bullet
 		this.bullet = this.add.sprite(0, 0, 'bullet');
         this.bullet.exists = false;
