@@ -71,6 +71,7 @@ module.exports = function(app, io) {
 			socket.emit('start game', data);
 		});
 
+
 		// when the user disconnects.. perform this
 		socket.on('disconnect', function(data) {
 			if(addedUser) {

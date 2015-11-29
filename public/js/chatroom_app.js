@@ -15,10 +15,11 @@ var socket = io();
 var username;
 var opponentid;
 
+
 var showLogin = function() {
 	$('#instruction-window').hide();
 	$('#login').show();
-	socket.emit('get users', "getting users");
+	// socket.emit('get users', "getting users");
 };
 
 //get users that are already there
@@ -26,7 +27,6 @@ socket.on('get users', getUsers);
 
 function getUsers(users) {
 	$('.users-online').empty();
-	// console.log(users);
 	if(users.length > 0) {
 		users.forEach(function(user) {
 			if(user.username !== username && !user.inGame) {
@@ -51,7 +51,7 @@ function setUsername() {
 
 		//welcome message displayed on main page
 		var welcomeMsg = $('<h4 id="welcome">').text('Welcome, ' + username + ".");
-		$('.sidebar').append(welcomeMsg);
+		$('#global-chat').prepend(welcomeMsg);
 
 		//tell server your username
 		socket.emit('add user', username);
@@ -80,6 +80,8 @@ socket.on('new message', function(data) {
 
 function addChatMessage(data) {
 	//renders message to the chat window as user: message content
+	var newLi = $('<li id="chatmessage">');
+	$("#messages").append(newLi);
 	var $usernameDiv = $('<span class="username"/>').text(data.username + ": ").css('color', 'red');
 	var $messageBodyDiv = $('<span class="messageBody">').text(data.message + " ");
 	var $messageDiv = $('#messages');
@@ -118,8 +120,6 @@ function sendInvite(e) {
 //when a user presses accept it will start a game
 function startGame(e) {
 	opponentid = $(this).attr('socketid');
-	console.log(opponentid);
-	// console.log(opponentid);
 	socket.emit('start game', {
 		opponent: opponentid,
 		player: socket.id
@@ -133,7 +133,7 @@ socket.on('start game', function(players) {
 	$("#game-container").attr('playerid', socket.id);
 
   // $('#users-header').hide();
-  $('.users-online').hide();
+  $('#global-chat').hide();
   $('#send-message').attr('id','send-private-message');
 	$('#messages').empty();
 	$('#invite-section').hide();
@@ -144,7 +144,6 @@ socket.on('start game', function(players) {
 
 
 function privateMessage(e) {
-	debugger;
 	opponentid = $(this).parent().parent().parent().parent().find('#game-container').attr('opponentid');
 
 	var message = $('#message-content').val();
