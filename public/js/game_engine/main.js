@@ -1,7 +1,6 @@
 var board_height = 500;
 var board_width = 800;
-
-var game = new Phaser.Game(board_width, board_height, Phaser.CANVAS, 'game-container');
+var game = new Phaser.Game(board_width, board_height, Phaser.CANVAS, 'game_screen');
 
 var TankGame = function(game){
 
@@ -10,6 +9,7 @@ var TankGame = function(game){
 	this.bullet = null;
 	this.background = null;
 	this.fireButton = null;
+	this.tps = "what";
 
 	this.playerTank = null;
 	this.playerTurret = null;
@@ -30,30 +30,17 @@ var TankGame = function(game){
 	this.enemyCursor = null;
 	this.enemyFirebutton = null;
 	this.enemyAngleText = null;
-<<<<<<< HEAD
-=======
-
-	this.bullet = null;
-	// this.background = null;
-
->>>>>>> 9f99b5513017a2942b10cb783e7f5251440c33ad
 };
 
 TankGame.prototype = {
 	preload:function(){
 		this.physics.startSystem(Phaser.Physics.ARCADE);
         this.physics.arcade.gravity.y = 400;
-<<<<<<< HEAD
+
 		this.load.image('background1', '../../assets/background1.png');
         this.load.image('background2', '../../assets/background2.png');
         this.load.image('background3', '../../assets/background3.png');
         this.load.image('button', '../../assets/button.png');
-=======
-		this.load.image('background1', '../../assets/background9.jpg');
-        this.load.image('background2', '../../assets/background6.jpg');
-        this.load.image('background3', '../../assets/background7.jpg');
-				this.load.image('background4', '../../assets/background8.jpg');
->>>>>>> 9f99b5513017a2942b10cb783e7f5251440c33ad
 
 		this.load.image('player1', '../../assets/player1.png');
 		this.load.image('player2', '../../assets/tank.png');
@@ -75,15 +62,10 @@ TankGame.prototype = {
 		//the main body
 		this.playerTank = this.add.sprite(0+Math.round(Math.random()*100), board_height-50, 'player1');
 		//turret
-<<<<<<< HEAD
 		this.playerTurret = this.add.sprite(this.playerTank.x + 25, this.playerTank.y + 14, 'turret');		
-=======
-		this.playerTurret = this.add.sprite(this.playerTank.x + 25, this.playerTank.y + 14, 'turret');
-        // default power set to 300 will most likely remove this part
-        this.playerPower = 300;
->>>>>>> 9f99b5513017a2942b10cb783e7f5251440c33ad
+
         // text for the power
-        this.playerText = this.add.text(10, 8, 'Power: 300', { font: "18px Arial", fill: "#ffffff" });
+        this.playerText = this.add.text(10, 8, 'Power: ', { font: "18px Arial", fill: "#ffffff" });
         //hp text
         this.playerhptext = this.add.text(10, 28, 'player1: 100', { font: "18px Arial", fill: "#ffffff" });
         //angletext
@@ -98,7 +80,7 @@ TankGame.prototype = {
 		//becuase the angling doesnt work for player 2 im going to just anchor a point on my turret 2
 		this.enemyTurret.anchor.setTo(0,0);
 		// text for the power
-		this.enemyText = this.add.text(board_width - 158, 8, 'Power: 300', { font: "18px Arial", fill: "#ffffff" });
+		this.enemyText = this.add.text(board_width - 158, 8, 'Power: ', { font: "18px Arial", fill: "#ffffff" });
 		//hp text
 		this.enemyhptext = this.add.text(board_width - 158, 28, 'player2: 100', { font: "18px Arial", fill: "#ffffff" });
 		//angle text
@@ -134,64 +116,64 @@ TankGame.prototype = {
 		if(this.bullet.exists){
 			return;
 		}
-
+		
 		var searchVal = $("#search_value").val();
+		var that = this;
 		if(searchVal.trim() === ''){ //check for empty field or spaces
 			console.log("not defined");
 			return;
 		}else{
-
 			if(this.turn % 2 === 0){
 
-				var data = $.ajax({
+				$.ajax({
 					url: "http://localhost:3000/mention/"+searchVal,
 					method: "GET",
 					dataType: "json"
 				}).done(function(data){
-					return data.tweetsPerSec;
+					console.log(data);
+					//reset the bullet back to the turret
+					that.bullet.reset(that.playerTurret.x, that.playerTurret.y);
+
+					//find the turrets ending by setting a point and finding rotation
+					var p1 = new Phaser.Point(that.playerTurret.x, that.playerTurret.y);
+					p1.rotate(p1.x, p1.y, that.playerTurret.rotation, false, 34);
+
+					//according to the doc I send rotation and power, and it wil; return a velocity i set to the third (which is bullet)
+					that.physics.arcade.velocityFromRotation(that.playerTurret.rotation, data.tweetsPerSec, that.bullet.body.velocity);
+					
+					that.turn += 1;
+
+					//  Update the text
+					that.playerAngleText.text = 'angle: ' + that.playerTurret.angle;
+	    			that.playerText.text = 'power: ' + data.tweetsPerSec;
 				});
-				console.log(data);
 
-				//reset the bullet back to the turret
-				this.bullet.reset(this.playerTurret.x, this.playerTurret.y);
-
-				//find the turrets ending by setting a point and finding rotation
-				var p1 = new Phaser.Point(this.playerTurret.x, this.playerTurret.y);
-				p1.rotate(p1.x, p1.y, this.playerTurret.rotation, false, 34);
-
-				//according to the doc I send rotation and power, and it wil; return a velocity i set to the third (which is bullet)
-				this.physics.arcade.velocityFromRotation(this.playerTurret.rotation, this.playerPower, this.bullet.body.velocity);
-				
-				this.turn += 1;
 			}else{
-				
-				var data = $.ajax({
+
+				$.ajax({
 					url: "http://localhost:3000/mention/"+searchVal,
 					method: "GET",
 					dataType: "json"
+				}).done(function(data){
+					console.log(data);
+					//reset the bullet back to the turret
+					that.bullet.reset(that.enemyTurret.x, that.enemyTurret.y);
+
+					//find the turrets ending by setting a point and finding rotation
+					var p1 = new Phaser.Point(that.enemyTurret.x, that.enemyTurret.y);
+					p1.rotate(p1.x, p1.y, that.enemyTurret.rotation, false, 34);
+
+					//according to the doc I send rotation and power, and it wil; return a velocity i set to the third (which is bullet)
+					that.physics.arcade.velocityFromRotation(that.enemyTurret.rotation, data.tweetsPerSec, that.bullet.body.velocity);
+					
+					that.turn += 1;
+					//  Update the text
+					that.enemyAngleText.text = 'angle: ' + that.playerTurret.angle;
+	    			that.enemyText.text = 'power: ' + data.tweetsPerSec;
 				});
-				console.log(data);
-				console.log(data.responseJSON.tweetsPerSec);
-
-				//reset the bullet back to the turret.
-				this.bullet.reset(this.enemyTurret.x, this.enemyTurret.y);
-
-				//find the turrets ending
-				var p1 = new Phaser.Point(this.enemyTurret.x, this.enemyTurret.y);
-				p1.rotate(p1.x, p1.y, this.enemyTurret.rotation, false, 34);
-
-				//according to the doc I send rotation and power, and it wil; return a velocity i set to the third (which is bullet)
-				this.physics.arcade.velocityFromRotation(this.enemyTurret.rotation, this.enemyPower, this.bullet.body.velocity);	
-
-				//  Update the text
-				this.enemyAngleText.text = 'angle: ' + this.enemyTurret.angle;
-	    		this.enemyText.text = 'power: ' + this.enemyPower;
-				
-				this.turn += 1;
-			}
-		}
-		
-		
+			}//end of the actual firing mech
+			
+		}// end of the else statement		
 			
 	},
 
@@ -242,9 +224,6 @@ TankGame.prototype = {
 			    this.playerTurret.angle++;
 			}
 
-			//  Update the text
-			this.playerAngleText.text = 'angle: ' + this.playerTurret.angle;
-	    	this.playerText.text = 'power: ' + this.playerPower;
 		}else{
 
 			//because i cant get the turret to pivot at a different point i cant set angle limitations
@@ -256,11 +235,6 @@ TankGame.prototype = {
 
 		}
 	}
-
-
-
-
-
 
 };
 
