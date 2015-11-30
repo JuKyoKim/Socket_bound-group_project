@@ -2,15 +2,12 @@ var board_height = 500;
 var board_width = 800;
 var game = new Phaser.Game(board_width, board_height, Phaser.CANVAS, 'game_screen');
 
-var hp = 500;
-
 var TankGame = function(game){
 	//variables im going to use throughout the game
 	this.turn = 1;
 	this.bullet = null;
 	this.background = null;
 	this.fireButton = null;
-	this.tps = "what";
 
 	this.playerTank = null;
 	this.playerTurret = null;
@@ -69,7 +66,7 @@ TankGame.prototype = {
         // text for the power
         this.playerText = this.add.text(10, 8, 'Power: ', { font: "18px Arial", fill: "#ffffff" });
         //hp text
-        this.playerhptext = this.add.text(10, 28, 'player1: 100', { font: "18px Arial", fill: "#ffffff" });
+        this.playerhptext = this.add.text(10, 28, 'player1 HP: 100', { font: "18px Arial", fill: "#ffffff" });
         //angletext
         this.playerAngleText = this.add.text(10, 48, 'angle: 0', { font: "18px Arial", fill: "#ffffff" });
         //controls preset for turns
@@ -84,7 +81,7 @@ TankGame.prototype = {
 		// text for the power
 		this.enemyText = this.add.text(board_width - 158, 8, 'Power: ', { font: "18px Arial", fill: "#ffffff" });
 		//hp text
-		this.enemyhptext = this.add.text(board_width - 158, 28, 'player2: 100', { font: "18px Arial", fill: "#ffffff" });
+		this.enemyhptext = this.add.text(board_width - 158, 28, 'player2 HP: 100', { font: "18px Arial", fill: "#ffffff" });
 		//angle text
 		this.enemyAngleText = this.add.text(board_width - 158, 48, 'angle: 0', { font: "18px Arial", fill: "#ffffff" });
 		//controls preset for turns
@@ -146,8 +143,7 @@ TankGame.prototype = {
 					that.turn += 1;
 
 					//  Update the text
-					that.playerAngleText.text = 'angle: ' + that.playerTurret.angle;
-	    			that.playerText.text = 'power: ' + data.tweetsPerSec;
+					that.playerText.text = 'power: ' + data.tweetsPerSec;
 				});
 
 			}else{
@@ -170,8 +166,7 @@ TankGame.prototype = {
 
 					that.turn += 1;
 					//  Update the text
-					that.enemyAngleText.text = 'angle: ' + that.playerTurret.angle;
-	    			that.enemyText.text = 'power: ' + data.tweetsPerSec;
+					that.enemyText.text = 'power: ' + data.tweetsPerSec;
 				});
 			}//end of the actual firing mech
 
@@ -225,6 +220,8 @@ TankGame.prototype = {
 			}else if (this.playerCursor.down.isDown && this.playerTurret.angle < 0){
 			    this.playerTurret.angle++;
 			}
+			this.playerAngleText.text = 'angle: ' + this.playerTurret.angle;
+	    			
 
 		}else{
 
@@ -234,7 +231,8 @@ TankGame.prototype = {
 			}else if (this.enemyCursor.down.isDown){
 			    this.enemyTurret.angle--;
 			}
-
+			this.enemyAngleText.text = 'angle: ' + this.enemyTurret.angle;
+	    			
 		}
 	}
 
