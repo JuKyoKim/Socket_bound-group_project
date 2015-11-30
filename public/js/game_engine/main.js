@@ -37,12 +37,13 @@ TankGame.prototype = {
 		this.physics.startSystem(Phaser.Physics.ARCADE);
         this.physics.arcade.gravity.y = 400;
 
-		this.load.image('background1', '../../assets/background1.png');
-        this.load.image('background2', '../../assets/background2.png');
-        this.load.image('background3', '../../assets/background3.png');
+		this.load.image('background1', '../../assets/background1.jpg');
+        this.load.image('background2', '../../assets/background2.jpg');
+        this.load.image('background3', '../../assets/background3.jpg');
+				this.load.image('background4', '../../assets/background4.jpg');
         this.load.image('button', '../../assets/button.png');
 
-		this.load.image('player1', '../../assets/player1.png');
+		this.load.image('player1', '../../assets/tank2.png');
 		this.load.image('player2', '../../assets/tank.png');
 		this.load.image('turret', '../../assets/turret.png');
 		this.load.image('bullet', '../../assets/bullet.png');
@@ -60,9 +61,9 @@ TankGame.prototype = {
 		this.fireButton = this.add.button((board_width/2)-75, board_height-50, 'button', this.fire, this);
 		/* sets everything for the player 1 and 2 */
 		//the main body
-		this.playerTank = this.add.sprite(0+Math.round(Math.random()*100), board_height-50, 'player1');
+		this.playerTank = this.add.sprite(0+Math.round(Math.random()*100), board_height-0, 'player1');
 		//turret
-		this.playerTurret = this.add.sprite(this.playerTank.x + 25, this.playerTank.y + 14, 'turret');		
+		this.playerTurret = this.add.sprite(this.playerTank.x + 25, this.playerTank.y + 14, 'turret');
 
         // text for the power
         this.playerText = this.add.text(10, 8, 'Power: ', { font: "18px Arial", fill: "#ffffff" });
@@ -72,7 +73,7 @@ TankGame.prototype = {
         this.playerAngleText = this.add.text(10, 48, 'angle: 0', { font: "18px Arial", fill: "#ffffff" });
         //controls preset for turns
         this.playerCursor = this.input.keyboard.createCursorKeys();
-		
+
         //the main body
 		this.enemyTank = this.add.sprite(board_width-(50+Math.round(Math.random()*100)), board_height-70, 'player2');
 		//turret
@@ -116,7 +117,7 @@ TankGame.prototype = {
 		if(this.bullet.exists){
 			return;
 		}
-		
+
 		var searchVal = $("#search_value").val();
 		var that = this;
 		if(searchVal.trim() === ''){ //check for empty field or spaces
@@ -140,7 +141,7 @@ TankGame.prototype = {
 
 					//according to the doc I send rotation and power, and it wil; return a velocity i set to the third (which is bullet)
 					that.physics.arcade.velocityFromRotation(that.playerTurret.rotation, data.tweetsPerSec, that.bullet.body.velocity);
-					
+
 					that.turn += 1;
 
 					//  Update the text
@@ -165,16 +166,16 @@ TankGame.prototype = {
 
 					//according to the doc I send rotation and power, and it wil; return a velocity i set to the third (which is bullet)
 					that.physics.arcade.velocityFromRotation(that.enemyTurret.rotation, data.tweetsPerSec, that.bullet.body.velocity);
-					
+
 					that.turn += 1;
 					//  Update the text
 					that.enemyAngleText.text = 'angle: ' + that.playerTurret.angle;
 	    			that.enemyText.text = 'power: ' + data.tweetsPerSec;
 				});
 			}//end of the actual firing mech
-			
-		}// end of the else statement		
-			
+
+		}// end of the else statement
+
 	},
 
 	LandHo: function () {
