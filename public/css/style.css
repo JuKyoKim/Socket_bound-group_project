@@ -88,8 +88,8 @@ ul {
 	background-color: white;
 	border: 1px solid lightgray;
 	border-radius: 5px;
-	width: 90%;
-	height: 350px;
+	width: 100%;
+	height: 300px;
 	overflow: auto;
 }
 
@@ -127,20 +127,20 @@ ul {
 }
 
 #global-chat {
-	display: none;
-	margin: 0 auto;
-	width: 50%;
+	width: 20%;
+	float: left;
 	height: 500px;
 	background-color: rgba(175, 191, 206, 0.5);
-	border: 2px solid #809ab2;
+	border-top: 2px solid #809ab2;
 	padding: 10px;
+	margin-left: 10px;
 }
 
 #messages-div {
-	width: 80%;
-	float: right;
+	width: 90%;
+	float: left;
+	height: 70%;
 	position: relative;
-	left: 20px;
 }
 
 
@@ -153,7 +153,10 @@ ul {
 
 #users-div {
 	float: left;
-	width: 20%;
+	width: 90%;
+	background: rgba(255, 255, 255, 0.7);
+	border-radius: 5px;
+	padding: 5px;
 }
 
 .users-online {
@@ -161,10 +164,10 @@ ul {
 	bottom: 10px;
 }
 
-#users-div h4 {
+/*#users-div h4 {
 	position: relative;
 	bottom: 10px;
-}
+}*/
 
 
 .invite {
@@ -203,6 +206,13 @@ ul {
  font-family: 'Quattrocento Sans', sans-serif;
 }
 
+#game-container {
+  margin-left: 24%;
+  margin-top: 10px;
+  width: 70%;
+  height: 100%;
+}
+
 .header {
   /*border: 1px dotted black;*/
 	text-align: center;
@@ -230,15 +240,6 @@ ul {
 
 }
 
-#game_container {
-	border-radius: 10px;
-  /*border: 1px dotted black;*/
-  margin-left: 22%;
-  margin-top: 10px;
-  width: 76%;
-  height: 70%;
-	display: none;
-}
 
 .sidebar-top {
   background-color: pink;
@@ -289,28 +290,6 @@ ul {
   float: right;
   padding: 10px;
   margin-top: 10px;
-}
-
-#overlay {
-     /*visibility: hidden;*/
-   position: absolute;
-   left: 0px;
-   top: 100px;
-   width:100%;
-   height:100%;
-   text-align:center;
-   z-index: 1000;
-   background-image: url(background-trans.png);
-}
-
-#overlay div {
-  color: gray;
-   width: 200px;
-   margin: 100px auto;
-   background-color: rgba(255,255,255,0.8);
-   padding:15px;
-   text-align:center;
-   border-radius: 10px;
 }
 
 .button {
