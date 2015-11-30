@@ -7,7 +7,7 @@ var bodyParser = require('body-parser'),
 	app        = express(),
 	server     = require('http').createServer(app),
 	io         = require('socket.io')(server),
-	port 	   = process.env.PORT || 3000
+	port 	   = process.env.PORT || 3000,
 	session    = require('express-session');
 
 //everything above is for the dependencies that needs to be required in the server file
