@@ -18,8 +18,8 @@
 - ajax(jquery)
 
 ##User Stories
-hit this [link](https://trello.com/b/B4O97RDg/twitter-game) for tickets
-hit this [link](https://docs.google.com/document/d/1zRE_Uv--YuGn7qPR_i5EDwMpJ1uHh_qilmy1-szjoWA/edit?ts=564e46e8) for google docs
+- hit this [link](https://trello.com/b/B4O97RDg/twitter-game) for tickets
+- hit this [link](https://docs.google.com/document/d/1zRE_Uv--YuGn7qPR_i5EDwMpJ1uHh_qilmy1-szjoWA/edit?ts=564e46e8) for google docs
 
 ##installation instructions
 - download, fork, or clone the files
