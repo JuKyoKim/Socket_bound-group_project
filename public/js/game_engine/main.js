@@ -3,6 +3,8 @@ var board_width = 800;
 var game = new Phaser.Game(board_width, board_height, Phaser.CANVAS, 'game_screen');
 
 var hp = 500;
+var angle = 100;
+var power = 100;
 
 var TankGame = function(game){
 	//variables im going to use throughout the game
@@ -10,7 +12,6 @@ var TankGame = function(game){
 	this.bullet = null;
 	this.background = null;
 	this.fireButton = null;
-	this.tps = "what";
 
 	this.playerTank = null;
 	this.playerTurret = null;
@@ -41,7 +42,7 @@ TankGame.prototype = {
 		this.load.image('background1', '../../assets/background1.jpg');
         this.load.image('background2', '../../assets/background2.jpg');
         this.load.image('background3', '../../assets/background3.jpg');
-				this.load.image('background4', '../../assets/background4.jpg');
+		this.load.image('background4', '../../assets/background4.jpg');
         this.load.image('button', '../../assets/button.png');
 
 		this.load.image('player1', '../../assets/tank2.png');
@@ -68,9 +69,9 @@ TankGame.prototype = {
 		this.playerTurret = this.add.sprite(this.playerTank.x + 25, this.playerTank.y + 14, 'turret');
 
         // text for the power
-        this.playerText = this.add.text(10, 8, 'Power: ', { font: "18px Arial", fill: "#ffffff" });
+        this.playerText = this.add.text(10, 8, 'Power of shot: ', { font: "18px Arial", fill: "#ffffff" });
         //hp text
-        this.playerhptext = this.add.text(10, 28, 'player1: 100', { font: "18px Arial", fill: "#ffffff" });
+        this.playerhptext = this.add.text(10, 28, 'player1hp: 100', { font: "18px Arial", fill: "#ffffff" });
         //angletext
         this.playerAngleText = this.add.text(10, 48, 'angle: 0', { font: "18px Arial", fill: "#ffffff" });
         //controls preset for turns
@@ -83,9 +84,9 @@ TankGame.prototype = {
 		//becuase the angling doesnt work for player 2 im going to just anchor a point on my turret 2
 		this.enemyTurret.anchor.setTo(0,0);
 		// text for the power
-		this.enemyText = this.add.text(board_width - 158, 8, 'Power: ', { font: "18px Arial", fill: "#ffffff" });
+		this.enemyText = this.add.text(board_width - 158, 8, 'Power of shot: ', { font: "18px Arial", fill: "#ffffff" });
 		//hp text
-		this.enemyhptext = this.add.text(board_width - 158, 28, 'player2: 100', { font: "18px Arial", fill: "#ffffff" });
+		this.enemyhptext = this.add.text(board_width - 158, 28, 'player2hp: 100', { font: "18px Arial", fill: "#ffffff" });
 		//angle text
 		this.enemyAngleText = this.add.text(board_width - 158, 48, 'angle: 0', { font: "18px Arial", fill: "#ffffff" });
 		//controls preset for turns
