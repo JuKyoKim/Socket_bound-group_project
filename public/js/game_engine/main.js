@@ -2,7 +2,8 @@ var board_height = 500;
 var board_width = 800;
 var game = new Phaser.Game(board_width, board_height, Phaser.CANVAS, 'game_screen');
 
-var hp = 500;
+var playerhp = 100;
+var opphp	= 100;
 
 var TankGame = function(game){
 	//variables im going to use throughout the game
@@ -195,6 +196,14 @@ TankGame.prototype = {
 			if(this.bullet.x <= this.playerTank.x && this.bullet.y <= this.playerTank.y){
 				this.bullet.kill();
 				this.playerhp -= 20;
+				playerhp = this.playerhp;
+
+				socket.emit('send HP', playerhp);
+
+				socket.on('send HP', function(playerhp){
+					$('#playerhp').append('<p class="playerhp-text">').text("HP: " + playerhp);
+				});
+
 				this.playerhptext.text = 'player1: '+ this.playerhp;
 				if(this.playerhp === 0){
 					this.playerTurret.kill();

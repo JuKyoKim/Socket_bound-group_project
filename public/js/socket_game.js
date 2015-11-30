@@ -1,13 +1,14 @@
 console.log('socket_game.js is loaded');
 
 $(function() {
-  sendHp(hp);
+  sendHp(playerhp);
+  console.log(playerhp);
 
 });
 
-var sendHp = function(hp) {
-  console.log(hp);
-  socket.emit('send HP', hp);
+var sendHp = function(playerhp) {
+  console.log(playerhp);
+  socket.emit('send HP', playerhp);
 };
 
 socket.on('send HP', function(hp){

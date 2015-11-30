@@ -74,13 +74,13 @@ module.exports = function(app, io) {
 
 
 		//send HP
-		socket.on('send HP', function(hp) {
-			//global variable set on top of this page
-			hp = hp;
-			console.log(opponentid);
-			socket.broadcast.to(opponentid).emit('send HP', hp);
-			socket.emit('send HP', hp);
-		});
+		// socket.on('send HP', function(hp) {
+		// 	//global variable set on top of this page
+		// 	hp = hp;
+		// 	console.log(opponentid);
+		// 	socket.broadcast.to(opponentid).emit('send HP', hp);
+		// 	socket.emit('send HP', hp);
+		// });
 
 		// when the user disconnects.. perform this
 		socket.on('disconnect', function(data) {

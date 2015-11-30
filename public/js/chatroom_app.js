@@ -169,8 +169,6 @@ socket.on('private message', function(data) {
 
 
 
-
-
 //user leaves
 socket.on('user left', function(data) {
 	socket.emit('user left', {
