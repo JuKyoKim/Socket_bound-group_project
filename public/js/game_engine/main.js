@@ -63,7 +63,7 @@ TankGame.prototype = {
 		console.log(this.fireButton);
 		/* sets everything for the player 1 and 2 */
 		//the main body
-		this.playerTank = this.add.sprite(0+Math.round(Math.random()*100), board_height-0, 'player1');
+		this.playerTank = this.add.sprite(0+Math.round(Math.random()*100), board_height-70, 'player1');
 		//turret
 		this.playerTurret = this.add.sprite(this.playerTank.x + 25, this.playerTank.y + 14, 'turret');
 
