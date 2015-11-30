@@ -38,12 +38,13 @@ TankGame.prototype = {
 		this.physics.startSystem(Phaser.Physics.ARCADE);
         this.physics.arcade.gravity.y = 400;
 
-		this.load.image('background1', '../../assets/background1.png');
-        this.load.image('background2', '../../assets/background2.png');
-        this.load.image('background3', '../../assets/background3.png');
+		this.load.image('background1', '../../assets/background1.jpg');
+        this.load.image('background2', '../../assets/background2.jpg');
+        this.load.image('background3', '../../assets/background3.jpg');
+				this.load.image('background4', '../../assets/background4.jpg');
         this.load.image('button', '../../assets/button.png');
 
-		this.load.image('player1', '../../assets/player1.png');
+		this.load.image('player1', '../../assets/tank2.png');
 		this.load.image('player2', '../../assets/tank.png');
 		this.load.image('turret', '../../assets/turret.png');
 		this.load.image('bullet', '../../assets/bullet.png');
@@ -62,7 +63,7 @@ TankGame.prototype = {
 		console.log(this.fireButton);
 		/* sets everything for the player 1 and 2 */
 		//the main body
-		this.playerTank = this.add.sprite(0+Math.round(Math.random()*100), board_height-50, 'player1');
+		this.playerTank = this.add.sprite(0+Math.round(Math.random()*100), board_height-0, 'player1');
 		//turret
 		this.playerTurret = this.add.sprite(this.playerTank.x + 25, this.playerTank.y + 14, 'turret');
 
